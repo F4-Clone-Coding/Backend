@@ -2,19 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Stores', {
-      storeId: {
+    await queryInterface.createTable('Menus', {
+      menuId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.SMALLINT.UNSIGNED,
       },
-      categoryId: {
+      storeId: {
         allowNull: false,
         type: Sequelize.SMALLINT.UNSIGNED,
         references: {
-          model: 'Categories',
-          key: 'categoryId',
+          model: 'Stores',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
+      },
+      menuCategoryId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'MenuCategories',
+          key: 'menuCategoryId',
         },
         onDelete: 'cascade',
       },
@@ -22,18 +31,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(40),
       },
-      storePhone: {
+      price: {
         allowNull: false,
-        type: Sequelize.STRING(40),
-        defaultValue: '112',
+        type: Sequelize.MEDIUMINT.UNSIGNED,
       },
-      imageUrl: {
+      image: {
         allowNull: true,
         type: Sequelize.STRING(255),
-      },
-      description: {
-        allowNull: true,
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Stores');
+    await queryInterface.dropTable('Menus');
   },
 };

@@ -2,34 +2,29 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Orders', {
-      orderId: {
+    await queryInterface.createTable('MenuCategories', {
+      menuCategoryId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.SMALLINT.UNSIGNED,
       },
-      userId: {
-        type: Sequelize.SMALLINT.UNSIGNED,
+      name: {
         allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'userId',
-        },
-        onDelete: 'cascade',
+        type: Sequelize.STRING(40),
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
       storeId: {
         type: Sequelize.SMALLINT.UNSIGNED,
         allowNull: false,
-        references: {
-          model: 'Stores',
-          key: 'storeId',
-        },
-        onDelete: 'cascade',
+        type: Sequelize.DATE,
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Orders');
+    await queryInterface.dropTable('MenuCategories');
   },
 };

@@ -1,0 +1,393 @@
+{
+  "user": [
+    {
+      "userId": 1,
+      "email": "baemin1@clone.com",
+      "password": "hash1234",
+      "nickname": "nicknam1e"
+    },
+    {
+      "userId": 2,
+      "email": "baemi2n@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname2"
+    },
+    {
+      "userId": 3,
+      "email": "baemin3@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname3"
+    },
+    {
+      "userId": 4,
+      "email": "baemin4@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname4"
+    },
+    {
+      "userId": 5,
+      "email": "baemi5n@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname5"
+    },
+    {
+      "userId": 6,
+      "email": "baemin6@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname6"
+    },
+    {
+      "userId": 7,
+      "email": "baemin7@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname7"
+    },
+    {
+      "userId": 8,
+      "email": "baemin8@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname8"
+    },
+    {
+      "userId": 9,
+      "email": "baemin9@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname9"
+    },
+    {
+      "userId": 10,
+      "email": "baemin1@clone.com",
+      "password": "hash1234",
+      "nickname": "nickname10"
+    }
+  ],
+
+  "menu": [
+    {
+      "menuId": 1,
+      "storeId": 9,
+      "name": "커스타드크로칸슈",
+      "menuCategoriId": 34,
+      "price": 5100,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 2,
+      "storeId": 9,
+      "menuCategoriId": 34,
+      "name": "가짜도쿄롤",
+      "price": 5600,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 3,
+      "storeId": 9,
+      "menuCategoriId": 31,
+      "name": "대용량아이스아메리카노",
+      "price": 12000,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 4,
+      "storeId": 9,
+      "menuCategoriId": 32,
+      "name": "리얼초코라떼",
+      "price": 12000,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 5,
+      "storeId": 9,
+      "menuCategoriId": 32,
+      "name": "리얼딸기라떼",
+      "price": 12000,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 6,
+      "storeId": 9,
+      "menuCategoriId": 34,
+      "name": "바닐라도넛",
+      "price": 3800,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 7,
+      "storeId": 9,
+      "menuCategoriId": 34,
+      "name": "초코크로아상",
+      "price": 4800,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 8,
+      "storeId": 9,
+      "menuCategoriId": 32,
+      "name": "흑당퐁라떼",
+      "price": 4400,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 9,
+      "storeId": 9,
+      "menuCategoriId": 32,
+      "name": "청포도에이드",
+      "price": 5200,
+      "menuImage": "https://hangggg"
+    },
+    {
+      "menuId": 10,
+      "storeId": 9,
+      "menuCategoriId": 31,
+      "name": "아인슈페너",
+      "price": 6800,
+      "image": "https://hangggg"
+    }
+  ],
+
+  "menuCategory": [
+    {
+      "menuCategoryId": 1,
+      "menuCategoryName": "인기메뉴"
+    },
+    {
+      "menuCategoryId": 2,
+      "menuCategoryName": "찌개&탕"
+    },
+    {
+      "menuCategoryId": 3,
+      "menuCategoryName": "덮밥&볶음밥"
+    },
+    {
+      "menuCategoryId": 4,
+      "menuCategoryName": "면류"
+    },
+    {
+      "menuCategoryId": 5,
+      "menuCategoryName": "사이드메뉴"
+    },
+    {
+      "menuCategoryId": 7,
+      "menuCategoryName": "밥류"
+    },
+    {
+      "menuCategoryId": 8,
+      "menuCategoryName": "볶음류"
+    },
+    {
+      "menuCategoryId": 9,
+      "menuCategoryName": "튀김류"
+    },
+    {
+      "menuCategoryId": 12,
+      "menuCategoryName": "스시"
+    },
+    {
+      "menuCategoryId": 13,
+      "menuCategoryName": "초밥"
+    },
+    {
+      "menuCategoryId": 14,
+      "menuCategoryName": "돈까스"
+    },
+    {
+      "menuCategoryId": 15,
+      "menuCategoryName": "카레"
+    },
+    {
+      "menuCategoryId": 16,
+      "menuCategoryName": "사이드메뉴"
+    },
+    {
+      "menuCategoryId": 19,
+      "menuCategoryName": "파스타"
+    },
+    {
+      "menuCategoryId": 20,
+      "menuCategoryName": "피자"
+    },
+    {
+      "menuCategoryId": 21,
+      "menuCategoryName": "스테이크"
+    },
+    {
+      "menuCategoryId": 22,
+      "menuCategoryName": "사이드메뉴"
+    },
+    {
+      "menuCategoryId": 25,
+      "menuCategoryName": "햄버거"
+    },
+    {
+      "menuCategoryId": 26,
+      "menuCategoryName": "치킨"
+    },
+    {
+      "menuCategoryId": 27,
+      "menuCategoryName": "샐러드"
+    },
+    {
+      "menuCategoryId": 28,
+      "menuCategoryName": "사이드메뉴"
+    },
+    {
+      "menuCategoryId": 31,
+      "menuCategoryName": "커피"
+    },
+    {
+      "menuCategoryId": 32,
+      "menuCategoryName": "음료"
+    },
+    {
+      "menuCategoryId": 33,
+      "menuCategoryName": "티"
+    },
+    {
+      "menuCategoryId": 34,
+      "menuCategoryName": "디저트"
+    }
+  ],
+
+  "storeCategory": [
+    {
+      "storeCategoryId": 1,
+      "name": "한식"
+    },
+    {
+      "storeCategoryId": 2,
+      "name": "중식"
+    },
+    {
+      "storeCategoryId": 3,
+      "name": "일식"
+    },
+    {
+      "storeCategoryId": 4,
+      "name": "양식"
+    },
+    {
+      "storeCategoryId": 5,
+      "name": "패스트푸드"
+    },
+    {
+      "storeCategoryId": 6,
+      "name": "카페"
+    }
+  ],
+
+  "Store": [
+    {
+      "storeCategoryId": 1,
+      "storeId": 1,
+      "imageUrl": "https://hangggg",
+      "storeName": "김치찌개밥뚝딱"
+    },
+    {
+      "storeCategoryId": 1,
+      "storeId": 2,
+      "imageUrl": "https://hangggg",
+      "storeName": "춘천닭갈비"
+    },
+    {
+      "storeCategoryId": 2,
+      "storeId": 3,
+      "imageUrl": "https://hangggg",
+      "storeName": "오늘은 짬뽕이 땡긴다."
+    },
+    {
+      "storeCategoryId": 2,
+      "storeId": 4,
+      "imageUrl": "https://hangggg",
+      "storeName": "칭구짬뽕"
+    },
+    {
+      "storeCategoryId": 3,
+      "storeId": 5,
+      "imageUrl": "https://hangggg",
+      "name": "미소야"
+    },
+    {
+      "storeCategoryId": 3,
+      "storeId": 6,
+      "imageUrl": "https://hangggg",
+      "name": "도마29"
+    },
+    {
+      "storeCategoryId": 4,
+      "storeId": 7,
+      "imageUrl": "https://hangggg",
+      "name": "롤링파스타"
+    },
+    {
+      "storeCategoryId": 4,
+      "storeId": 8,
+      "imageUrl": "https://hangggg",
+      "name": "죠니스 키친"
+    },
+    {
+      "storeCategoryId": 5,
+      "storeId": 9,
+      "imageUrl": "https://hangggg",
+      "name": "쉑쉑"
+    },
+    {
+      "storeCategoryId": 6,
+      "storeId": 10,
+      "imageUrl": "https://hangggg",
+      "name": "슬로우 터틀"
+    }
+  ],
+
+  "Order": [
+    {
+      "orderId": 1,
+      "userId": 1,
+      "storeId": 1
+    },
+    {
+      "orderId": 2,
+      "userId": 1,
+      "storeId": 1
+    },
+    {
+      "orderId": 3,
+      "userId": 1,
+      "storeId": 2
+    },
+    {
+      "orderId": 4,
+      "userId": 1,
+      "storeId": 2
+    },
+    {
+      "orderId": 5,
+      "userId": 1,
+      "storeId": 2
+    },
+    {
+      "orderId": 6,
+      "userId": 2,
+      "storeId": 3
+    },
+    {
+      "orderId": 7,
+      "userId": 2,
+      "storeId": 3
+    },
+    {
+      "orderId": 8,
+      "userId": 2,
+      "storeId": 3
+    },
+    {
+      "orderId": 9,
+      "userId": 2,
+      "storeId": 4
+    },
+    {
+      "orderId": 10,
+      "userId": 2,
+      "storeId": 4
+    }
+  ]
+}

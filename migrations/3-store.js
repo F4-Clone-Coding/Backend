@@ -3,32 +3,49 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Stores', {
-      id: {
+      storeId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.SMALLINT.UNSIGNED,
       },
-      nickname: {
-        type: Sequelize.STRING
+      categoryId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Category',
+          key: 'categoryId',
+        },
+        onDelete: 'cascade',
       },
-      nickname: {
-        type: Sequelize.STRING
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING(40),
       },
-      password: {
-        type: Sequelize.STRING
+      storePhone: {
+        allowNull: false,
+        type: Sequelize.STRING(40),
+        defaultValue: '112',
+      },
+      imageUrl: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
+      },
+      description: {
+        allowNull: true,
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Stores');
-  }
+  },
 };

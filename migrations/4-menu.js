@@ -3,32 +3,53 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Menus', {
-      id: {
+      menuId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.SMALLINT.UNSIGNED,
       },
-      nickname: {
-        type: Sequelize.STRING
+      storeId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Store',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
       },
-      nickname: {
-        type: Sequelize.STRING
+      menuCategoryId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'MenuCategory',
+          key: 'menuCategoryId',
+        },
+        onDelete: 'cascade',
       },
-      password: {
-        type: Sequelize.STRING
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING(40),
+      },
+      price: {
+        allowNull: false,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
+      },
+      image: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Menus');
-  }
+  },
 };

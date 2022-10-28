@@ -10,7 +10,24 @@ module.exports = {
         type: Sequelize.SMALLINT.UNSIGNED,
       },
       userId: {
+        allowNull: false,
         type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'cascade',
+      },
+      storeId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Stores',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
+      },
+      createdAt: {
         allowNull: false,
         references: {
           model: 'Users',

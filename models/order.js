@@ -9,14 +9,42 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+     static associate(models) {
+      this.belongsTo(models.User, {
+        foreignKey: "userId",
+        // targetKey: 'userId',
+      });
+      this.belongsTo(models.Store, {
+        foreignKey: "storeId",
+        // targetKey: 'storeId',
+      });
     }
   }
   Order.init({
-    nickname: DataTypes.STRING,
-    nickname: DataTypes.STRING,
-    password: DataTypes.STRING
+    orderId: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "User",
+        key: "userId",
+      },
+      onDelete: "cascade",
+    },
+    storeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Store",
+        key: "storeId",
+      },
+      onDelete: "cascade",
+    },
   }, {
     sequelize,
     modelName: 'Order',

@@ -14,7 +14,7 @@ class Env {
         this.DB_PASSWORD = process.env.DB_PASSWORD;
 
         this.JWT_KEY = process.env.JWT_KEY;
-        this.SALT_ROUND = number(process.env.SALT_ROUND);
+        this.SALT_ROUND = Number(process.env.SALT_ROUND);
         this.SESSION_KEY = process.env.SESSION_KEY;
 
         this.ROOT = __dirname;

@@ -3,32 +3,33 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Orders', {
-      id: {
+      orderId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.SMALLINT.UNSIGNED,
       },
-      nickname: {
-        type: Sequelize.STRING
-      },
-      nickname: {
-        type: Sequelize.STRING
-      },
-      password: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
+      userId: {
+        type: Sequelize.SMALLINT.UNSIGNED,
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'cascade',
       },
-      updatedAt: {
+      storeId: {
+        type: Sequelize.SMALLINT.UNSIGNED,
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        references: {
+          model: 'Stores',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Orders');
-  }
+  },
 };

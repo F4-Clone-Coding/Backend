@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.SMALLINT.UNSIGNED,
         references: {
-          model: 'Category',
+          model: 'Categories',
           key: 'categoryId',
         },
         onDelete: 'cascade',

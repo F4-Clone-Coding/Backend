@@ -18,24 +18,47 @@ class OrderService {
     console.log("records:", records);
     const parsedRecords = JSON.parse(records);
     console.log("parsedRecords:", parsedRecords);
- 
+
     const menuList = [];
-    for (let i = 0; i < parsedRecords.length; i++) {
-      let menuId = parsedRecords[i].menuId;
-      let count = parsedRecords[i].count;
+    
+    const promises = parsedRecords.map(async (record) => {
+      let menuId = record.menuId;
+      let count = record.count;
 
-      if (!menuId || !count) break;
+      if (menuId && count) {
+        let menu = await this.orderRepository.findOneMenu(menuId)
+        let Menu = {
+          menuId: menu.menuId,
+          name: menu.name,
+          price: menu.price,
+          count,
+          image: menu.image,
+        };
+        return menuList.push(Menu)
+      }
+     });
+    
+     await Promise.all(promises) 
+    
+    
+ 
+    
+    // for (let i = 0; i < parsedRecords.length; i++) {
+    //   let menuId = parsedRecords[i].menuId;
+    //   let count = parsedRecords[i].count;
 
-      let menu = await this.orderRepository.findOneMenu(menuId);
-      let Menu = {
-        menuId: menu.menuId,
-        name: menu.name,
-        price: menu.price,
-        count,
-        image: menu.image,
-      };
-      menuList.push(Menu);
-    }
+    //   if (!menuId || !count) break;
+
+    //   let menu = await this.orderRepository.findOneMenu(menuId);
+    //   let Menu = {
+    //     menuId: menu.menuId,
+    //     name: menu.name,
+    //     price: menu.price,
+    //     count,
+    //     image: menu.image,
+    //   };
+    //   menuList.push(Menu);
+    // }
     console.log("menuList:", menuList);
 
     const data = {
@@ -45,7 +68,6 @@ class OrderService {
       storeName: foundOrder.Store.name,
       storePhone: foundOrder.Store.storePhone,
       menuList,
-      totalPrice: parsedRecords.sum
     };
     console.log(data);
 

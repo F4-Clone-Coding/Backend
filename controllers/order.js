@@ -58,7 +58,12 @@ class OrderController {
           count: 2,
           price: 7000,
         },
-        { sum: 65000 },
+        {
+          menuId: 3,
+          count: 2,
+          price: 7000,
+        },
+        { sum: 82000 },
       ];
 
       const createOrderData = await this.orderService.createOrder(

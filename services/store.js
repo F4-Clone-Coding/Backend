@@ -1,15 +1,14 @@
-const StoreRepository = require("../repositories/store");
+const { StoreRepo } = require("../repositories");
 
-  class StoreServices{
 
-    storerepository = new StoreRepository();
-    
-    //매장 상세 페이지 조회
-    DetailStore = async(storeId)=>{
-      const find = await this.storerepository.DetailStore(storeId)
-      return find
-    }
+class StoreServices{
   
+  //매장 상세 페이지 조회
+  DetailStore = async(storeId)=>{
+    const find = await StoreRepo.DetailStore(storeId)
+    return find
   }
 
-module.exports = StoreServices;
+}
+
+module.exports = new StoreServices();

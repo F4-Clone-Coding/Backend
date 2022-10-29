@@ -1,7 +1,6 @@
-const OrderService = require("../services/order");
+const { OrderService } = require("../services");
 
 class OrderController {
-  orderService = new OrderService();
   /**
    * 주문내역 조회 (GET 'oder/:orderId')
    * @param {*} req 
@@ -12,7 +11,7 @@ class OrderController {
   findOneOrder = async (req, res, next) => {
     try{
       const { orderId } = req.params;
-      const foundOrder = await this.orderService.findOneOrder(orderId)
+      const foundOrder = await OrderService.findOneOrder(orderId)
       res.json({ data: foundOrder });
     }catch(error){
       console.trace(error);
@@ -25,7 +24,7 @@ class OrderController {
   findOrderRecordsById = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      const foundOrder = await this.orderService.findOrderRecordsById(orderId);
+      const foundOrder = await OrderService.findOrderRecordsById(orderId);
       res.json({ data: foundOrder });
     } catch (error) {
       console.trace(error);
@@ -66,7 +65,7 @@ class OrderController {
         { sum: 82000 },
       ];
 
-      const createOrderData = await this.orderService.createOrder(
+      const createOrderData = await OrderService.createOrder(
         userId,
         storeId,
         order
@@ -85,4 +84,4 @@ class OrderController {
   };
 }
 
-module.exports = OrderController;
+module.exports = new OrderController();

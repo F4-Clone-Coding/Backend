@@ -1,4 +1,4 @@
-const { Store, Menu} = require('../models')
+const { Store, Menu } = require('../db/models')
 
   class StoreRepositories {
 
@@ -11,4 +11,4 @@ const { Store, Menu} = require('../models')
 
   }
 
-module.exports = StoreRepositories
+module.exports = new StoreRepositories();

@@ -1,17 +1,17 @@
-const CategoryRepositories= require("../repositories/category.js");
+const { CategoryRepo } = require("../repositories");
 
-  class CategoryServices {
 
-    categoryrepositories = new CategoryRepositories();
-  //전체 카테 고리 조회
-  findAllCategories = async () =>{
-    return await this.categoryrepositories.findAllCategories()
-  }
-  //카테고리에 해당하는 매장 조회
-  findOneCategory = async (categoryId) =>{
-    return await this.categoryrepositories.findOneCategory(categoryId)
-  }
+class CategoryServices {
 
-  }
+//전체 카테 고리 조회
+findAllCategories = async () =>{
+  return await CategoryRepo.findAllCategories()
+}
+//카테고리에 해당하는 매장 조회
+findOneCategory = async (categoryId) =>{
+  return await CategoryRepo.findOneCategory(categoryId)
+}
 
-module.exports = CategoryServices;
+}
+
+module.exports = new CategoryServices();

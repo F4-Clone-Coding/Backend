@@ -1,4 +1,4 @@
-const { Order, Store, Menu } = require("../models");
+const { Order, Store, Menu } = require("../db/models");
 
 class OrderRepository {
       /**
@@ -55,4 +55,4 @@ class OrderRepository {
 
 }
 
-module.exports = OrderRepository;
+module.exports = new OrderRepository();

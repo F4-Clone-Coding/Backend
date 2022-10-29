@@ -1,7 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const sequelize = require('./config/connection');
+const sequelize = require('./db/config/connection');
 const env = require('./config.env');
 
 const indexRouter = require('./routes/index');

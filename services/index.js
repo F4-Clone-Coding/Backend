@@ -1,6 +1,7 @@
-
+const CategoryService = require('./category');
+const OrderService = require('./order');
+const StoreService = require('./store');
 const UserService = require('./user');
-const OrderService = require('./order')
 
 
-module.exports = { UserService, OrderService }
+module.exports = { CategoryService, OrderService, StoreService, UserService };

@@ -1,8 +1,7 @@
-const OrderRepository = require("../repositories/order");
+const { OrderRepo } = require("../repositories");
 
 
 class OrderService {
-  orderRepository = new OrderRepository();
 
   /**
    * 주문내역 조회 (GET 'oder/:orderId')
@@ -12,7 +11,7 @@ class OrderService {
    * @returns
    */
   findOneOrder = async (orderId) => {
-    const foundOrder = await this.orderRepository.findOneOrder(orderId);
+    const foundOrder = await OrderRepo.findOneOrder(orderId);
 
     const { records } = foundOrder;
     const parsedRecords = JSON.parse(records);
@@ -24,7 +23,7 @@ class OrderService {
       let count = record.count;
 
       if (menuId && count) {
-        let menu = await this.orderRepository.findOneMenu(menuId);
+        let menu = await OrderRepo.findOneMenu(menuId);
         let Menu = {
           menuId: menu.menuId,
           name: menu.name,
@@ -53,7 +52,7 @@ class OrderService {
 
   //주문 한개 내역 조회 //사용하지 않고 있습니다.
   findOrderRecordsById = async (orderId) => {
-    const foundOrder = await this.orderRepository.findOrderById(orderId);
+    const foundOrder = await OrderRepo.findOrderById(orderId);
 
     const result = foundOrder.get().records;
     console.log(JSON.parse(result));
@@ -73,7 +72,7 @@ class OrderService {
   createOrder = async (userId, storeId, order) => {
     const records = JSON.stringify(order);
 
-    const createOrderData = await this.orderRepository.createOrder(
+    const createOrderData = await OrderRepo.createOrder(
       userId,
       storeId,
       records
@@ -83,4 +82,4 @@ class OrderService {
   };
 }
 
-module.exports = OrderService;
+module.exports = new OrderService();

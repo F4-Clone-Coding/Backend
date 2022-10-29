@@ -3,12 +3,12 @@ const OrderRepository = require("../repositories/order");
 class OrderService {
   orderRepository = new OrderRepository();
 
-    /**
+  /**
    * 주문내역 조회 (GET 'oder/:orderId')
-   * @param {*} req 
-   * @param {*} res 
-   * @param {*} next 
-   * @returns 
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns
    */
   findOneOrder = async (orderId) => {
     const foundOrder = await this.orderRepository.findOneOrder(orderId);
@@ -20,13 +20,13 @@ class OrderService {
     console.log("parsedRecords:", parsedRecords);
 
     const menuList = [];
-    
+
     const promises = parsedRecords.map(async (record) => {
       let menuId = record.menuId;
       let count = record.count;
 
       if (menuId && count) {
-        let menu = await this.orderRepository.findOneMenu(menuId)
+        let menu = await this.orderRepository.findOneMenu(menuId);
         let Menu = {
           menuId: menu.menuId,
           name: menu.name,
@@ -34,15 +34,12 @@ class OrderService {
           count,
           image: menu.image,
         };
-        return menuList.push(Menu)
+        return menuList.push(Menu);
       }
-     });
-    
-     await Promise.all(promises) 
-    
-    
- 
-    
+    });
+
+    await Promise.all(promises);
+
     // for (let i = 0; i < parsedRecords.length; i++) {
     //   let menuId = parsedRecords[i].menuId;
     //   let count = parsedRecords[i].count;
@@ -86,12 +83,12 @@ class OrderService {
     return data;
   };
 
-    /**
+  /**
    * 주문생성 (POST 'store/:storeId')
-   * @param {*} req 
-   * @param {*} res 
-   * @param {*} next 
-   * @returns 
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns
    */
   createOrder = async (userId, storeId, order) => {
     const records = JSON.stringify(order);

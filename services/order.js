@@ -5,10 +5,11 @@ class OrderService {
 
   //주문생성
   createOrder = async (userId, storeId, order) => {
-    
-    const foundOrder = await this.orderRepository.findOrder(userId, storeId)
 
-    const createOrderData = await this.orderRepository.createOrder(userId, storeId);
+    const records = JSON.stringify(order)
+    console.log(records)
+
+    const createOrderData = await this.orderRepository.createOrder(userId, storeId, records);
 
     return createOrderData;
   };

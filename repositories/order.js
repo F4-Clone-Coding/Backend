@@ -7,9 +7,10 @@ findOrder = async ( userId, storeId ) => {
     return findOneOrder;
   };
 
-  createOrder = async ( userId, storeId ) => {
-    const createOrder = await Order.create( userId, storeId );
-    return createOrder;
+  createOrder = async ( userId, storeId, records ) => {
+    console.log(userId, storeId, records)
+    const createOrderData = await Order.create({ userId, storeId, records });
+    return createOrderData;
   };
 
 }

@@ -13,7 +13,7 @@ const categoryRouter = require("./category")
 // });
 
 router.use("/", categoryRouter);
-router.use("/user", userRouter);
+router.use("/", userRouter);
 router.use("/store", storeRouter);
 router.use("/order", orderRouter);
 

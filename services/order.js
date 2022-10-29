@@ -12,12 +12,9 @@ class OrderService {
    */
   findOneOrder = async (orderId) => {
     const foundOrder = await this.orderRepository.findOneOrder(orderId);
-    console.log(foundOrder.get());
 
     const { records } = foundOrder;
-    console.log("records:", records);
     const parsedRecords = JSON.parse(records);
-    console.log("parsedRecords:", parsedRecords);
 
     const menuList = [];
 
@@ -39,24 +36,6 @@ class OrderService {
     });
 
     await Promise.all(promises);
-
-    // for (let i = 0; i < parsedRecords.length; i++) {
-    //   let menuId = parsedRecords[i].menuId;
-    //   let count = parsedRecords[i].count;
-
-    //   if (!menuId || !count) break;
-
-    //   let menu = await this.orderRepository.findOneMenu(menuId);
-    //   let Menu = {
-    //     menuId: menu.menuId,
-    //     name: menu.name,
-    //     price: menu.price,
-    //     count,
-    //     image: menu.image,
-    //   };
-    //   menuList.push(Menu);
-    // }
-    console.log("menuList:", menuList);
 
     const data = {
       orderId: foundOrder.orderId,
@@ -92,7 +71,6 @@ class OrderService {
    */
   createOrder = async (userId, storeId, order) => {
     const records = JSON.stringify(order);
-    console.log(records);
 
     const createOrderData = await this.orderRepository.createOrder(
       userId,

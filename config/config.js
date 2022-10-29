@@ -9,7 +9,6 @@ module.exports = {
     dialect: 'mysql',
     timezone: "+09:00",
     dialectOptions: {
-      charset: 'utf8mb4',
       dateStrings: true,
       typeCast: true
   }

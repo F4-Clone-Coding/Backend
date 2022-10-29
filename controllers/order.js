@@ -72,12 +72,14 @@ class OrderController {
         order
       );
 
+
       const { orderId } = createOrderData;
 
       res.json({ data: orderId });
     } catch (error) {
       //next(error);
       console.trace(error);
+      
       return res.status(400).json("임시로 쓴 에러");
     }
   };

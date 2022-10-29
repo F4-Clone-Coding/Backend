@@ -1,7 +1,6 @@
 const { Order, Store, Menu } = require("../models");
 
 class OrderRepository {
-
       /**
    * 주문내역 조회 (GET 'oder/:orderId')
    * @param {*} req 

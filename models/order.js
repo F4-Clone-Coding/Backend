@@ -5,11 +5,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.User, {
         foreignKey: 'userId',
-        // targetKey: 'userId',
+        targetKey: 'userId',
       });
       this.belongsTo(models.Store, {
         foreignKey: 'storeId',
-        // targetKey: 'storeId',
+        targetKey: 'storeId',
       });
     }
   }
@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
       records: {
         type: DataTypes.JSON, 
         allowNull : false,      
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
       },
     },
     {

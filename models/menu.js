@@ -6,7 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Store, {
         foreignKey: 'storeId',
       });
-      this.belongsTo(models.MenuCategory, { foreignKey: 'menuCategoryId' });
+      this.belongsTo(models.MenuCategory, { 
+        foreignKey: 'menuCategoryId' 
+      });
     }
   }
   Menu.init(

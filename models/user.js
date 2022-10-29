@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      this.hasMany(models.Order, {
+        sourceKey: 'userId',
+        foreignKey: 'userId',
+      });
       
     }
   }
@@ -33,6 +37,10 @@ User.init({
     provider: {
       type: DataTypes.STRING(40),
       defaultValue: 'local'
+    },
+    location: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE

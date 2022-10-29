@@ -10,8 +10,6 @@ const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
 const app = express();
 const PORT = env.PORT || 3333;
 
-
-
 // middlewares
 app.use(logger('dev'));
 
@@ -26,6 +24,7 @@ app.use(errorHandler);
 
 app.listen(PORT, async() => {
     console.log(`SERVER RUNNING ON PORT ${PORT}`);
+    console.log(env);
 
     try {
         await sequelize.authenticate();

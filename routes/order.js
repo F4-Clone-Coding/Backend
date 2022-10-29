@@ -5,6 +5,6 @@ const OrderController = require('../controllers/order');
 const orderController = new OrderController();
 
 //주문내역 페이지
-router.get("/:orderId", orderController.findOrderRecordsById);
+router.get("/:orderId", orderController.findOneOrder);
 
 module.exports = router;

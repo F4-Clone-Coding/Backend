@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const sequelize = require('./config/connection');
 const env = require('./config.env');
 
 const indexRouter = require('./routes/index');
@@ -23,6 +24,15 @@ app.use(errorLogger);
 app.use(errorHandler);
 
 
-app.listen(PORT, () => {
+app.listen(PORT, async() => {
     console.log(`SERVER RUNNING ON PORT ${PORT}`);
+
+    try {
+        await sequelize.authenticate();
+
+        console.log('DB CONNECTED');
+    } catch (error) {
+        console.error(error);
+        console.log('DB CONNECTION FAILED');
+    }
 });

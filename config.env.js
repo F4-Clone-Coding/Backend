@@ -4,14 +4,38 @@ const path = require('path');
 dotenv.config();
 
 
-class Env {
+class dbConnection {
     constructor() {
-        this.PORT = process.env.PORT
+        this.setEnv();
+    }
 
-        this.DB_HOST = process.env.DB_HOST;
-        this.DB_NAME = process.env.DB_NAME;
-        this.DB_USER = process.env.DB_USER;
-        this.DB_PASSWORD = process.env.DB_PASSWORD;
+    setEnv() {
+        this.MODE = ( process.env.NODE_ENV ) ?
+            ( process.env.NODE_ENV ).trim().toLowerCase() : 'development';
+
+        switch (this.MODE) {
+            case 'development':
+                this.DB_HOST = process.env.DB_HOST;
+                this.DB_NAME = process.env.DB_NAME;
+                this.DB_USER = process.env.DB_USER;
+                this.DB_PASSWORD = process.env.DB_PASSWORD;
+                break;
+            case 'production':
+                this.DB_HOST = process.env.PRD_HOST;
+                this.DB_NAME = process.env.PRD_NAME;
+                this.DB_USER = process.env.PRD_USER;
+                this.DB_PASSWORD = process.env.PRD_PASSWORD;
+                break;
+        }
+    }
+}
+
+
+class Env extends dbConnection {
+    constructor() {
+        super();
+
+        this.PORT = process.env.PORT;
 
         this.JWT_KEY = process.env.JWT_KEY;
         this.SALT_ROUND = Number(process.env.SALT_ROUND);

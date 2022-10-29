@@ -1,12 +1,11 @@
 const request = require('request');
 const env = require('../config.env');
-const User = require('../services/user');
+const { UserService } = require('../services');
 const jwt = require('../utils/jwt');
 // const { addUserToken, removeUserToken } = require('../db/cache');
 const { signupSchema, signinSchema } = require('../utils/validation');
 const { InvalidParamsError } = require('../utils/exception');
 const cookieConfig = require('../utils/cookieConfig');
-
 
 
 class UserController {
@@ -17,7 +16,7 @@ class UserController {
             if (password !== confirm)
                 throw new InvalidParamsError('비밀번호가 일치하지 않습니다.');
     
-            await User.signup({ email, password, nickname });
+            await UserService.signup({ email, password, nickname });
     
             res.status(200).json({
                 message: 'SUCCESS'
@@ -33,7 +32,7 @@ class UserController {
             const { value } = req.body;
             if (!value) throw new InvalidParamsError('입력값이 없습니다.');
     
-            const result = await User.dupCheck(value);
+            const result = await UserService.dupCheck(value);
     
             res.status(200).json({
                 result,
@@ -49,7 +48,7 @@ class UserController {
             const { nickname } = req.body;
             const { userId } = req.app.locals.user;
             
-            await User.nicknameUpdate({ userId, nickname });
+            await UserService.nicknameUpdate({ userId, nickname });
     
             res.status(200).json({
                 message: 'SUCCESS'
@@ -64,7 +63,7 @@ class UserController {
 
     findAll = async function(req, res, next) {
         try {
-            const userList = await User.findAll();
+            const userList = await UserService.findAll();
     
             res.status(200).json({
                 data: userList,
@@ -79,7 +78,7 @@ class UserController {
         console.log("FIND ONE");
         try {
             const { userId } = req.app.locals.user;
-            const user = await User.findOne(userId);
+            const user = await UserService.findOne(userId);
     
             res.status(200).json({
                 data: user
@@ -94,7 +93,7 @@ class UserController {
         try {
             const { email, password } 
                 = await signinSchema.validateAsync(req.body);
-            const payload = await User.signin(email, password)
+            const payload = await UserService.signin(email, password)
             if (payload instanceof Error) throw payload;
 
             const accessToken = jwt.sign(payload);
@@ -126,7 +125,7 @@ class UserController {
             }
             const { id_token } = JSON.parse(body);
             const { email, nickname } = jwt.decode(id_token);
-            const payload = await User.kakaoSign(email, nickname);            
+            const payload = await UserService.kakaoSign(email, nickname);            
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();

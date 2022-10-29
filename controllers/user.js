@@ -76,13 +76,9 @@ class UserController {
     };
 
     findOne = async function(req, res, next) {
+        console.log("FIND ONE");
         try {
-            const { authorization, refreshtoken } = req.headers;
-            if (!authorization || !refreshtoken) {
-                    throw new Error('INVALID HEADER');
-            }
-            const accessToken = authorization.split(' ')[1];
-            const { userId } = jwt.verify(accessToken);
+            const { userId } = req.app.locals.user;
             const user = await User.findOne(userId);
     
             res.status(200).json({

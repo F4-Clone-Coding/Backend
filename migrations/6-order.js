@@ -27,6 +27,28 @@ module.exports = {
         },
         onDelete: 'cascade',
       },
+      records: {
+        allowNull: false,
+        type: Sequelize.JSON
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
+        onDelete: 'cascade',
+      },
+      storeId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Stores',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

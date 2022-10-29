@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
         references: {
-          model: 'Store',
+          model: 'Stores',
           key: 'storeId',
         },
         onDelete: 'cascade',
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
         references: {
-          model: 'MenuCategory',
+          model: 'MenuCategories',
           key: 'menuCategoryId',
         },
         onDelete: 'cascade',

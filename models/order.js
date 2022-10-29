@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: 'cascade',
       },
+      records: {
+        type: DataTypes.JSON, 
+        allowNull : false,      
+      },
     },
     {
       sequelize,

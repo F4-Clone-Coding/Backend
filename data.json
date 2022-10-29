@@ -272,71 +272,73 @@
     {
       "storeCategoryId": 6,
       "name": "카페"
-    }
-  ],
-
-  "Store": [
-    {
-      "storeCategoryId": 1,
-      "storeId": 1,
-      "imageUrl": "https://hangggg",
-      "storeName": "김치찌개밥뚝딱"
     },
-    {
-      "storeCategoryId": 1,
-      "storeId": 2,
-      "imageUrl": "https://hangggg",
-      "storeName": "춘천닭갈비"
-    },
-    {
-      "storeCategoryId": 2,
-      "storeId": 3,
-      "imageUrl": "https://hangggg",
-      "storeName": "오늘은 짬뽕이 땡긴다."
-    },
-    {
-      "storeCategoryId": 2,
-      "storeId": 4,
-      "imageUrl": "https://hangggg",
-      "storeName": "칭구짬뽕"
-    },
-    {
-      "storeCategoryId": 3,
-      "storeId": 5,
-      "imageUrl": "https://hangggg",
-      "name": "미소야"
-    },
-    {
-      "storeCategoryId": 3,
-      "storeId": 6,
-      "imageUrl": "https://hangggg",
-      "name": "도마29"
-    },
-    {
-      "storeCategoryId": 4,
-      "storeId": 7,
-      "imageUrl": "https://hangggg",
-      "name": "롤링파스타"
-    },
-    {
-      "storeCategoryId": 4,
-      "storeId": 8,
-      "imageUrl": "https://hangggg",
-      "name": "죠니스 키친"
-    },
-    {
-      "storeCategoryId": 5,
-      "storeId": 9,
-      "imageUrl": "https://hangggg",
-      "name": "쉑쉑"
-    },
-    {
-      "storeCategoryId": 6,
-      "storeId": 10,
-      "imageUrl": "https://hangggg",
-      "name": "슬로우 터틀"
-    }
-  ],
+    {"Store": [
+      {
+        "storeCategoryId": 1,
+        "storeId": 1,
+        "imageUrl": "https://hangggg",
+        "storeName": "김치찌개밥뚝딱"
+      },
+      {
+        "storeCategoryId": 1,
+        "storeId": 2,
+        "imageUrl": "https://hangggg",
+        "storeName": "춘천닭갈비"
+      },
+      {
+        "storeCategoryId": 2,
+        "storeId": 3,
+        "imageUrl": "https://hangggg",
+        "storeName": "오늘은 짬뽕이 땡긴다."
+      },
+      {
+        "storeCategoryId": 2,
+        "storeId": 4,
+        "imageUrl": "https://hangggg",
+        "storeName": "칭구짬뽕"
+      },
+      {
+        "storeCategoryId": 3,
+        "storeId": 5,
+        "imageUrl": "https://hangggg",
+        "name": "미소야"
+      },
+      {
+        "storeCategoryId": 3,
+        "storeId": 6,
+        "imageUrl": "https://hangggg",
+        "name": "도마29"
+      },
+      {
+        "storeCategoryId": 4,
+        "storeId": 7,
+        "imageUrl": "https://hangggg",
+        "name": "롤링파스타"
+      },
+      {
+        "storeCategoryId": 4,
+        "storeId": 8,
+        "imageUrl": "https://hangggg",
+        "name": "죠니스 키친"
+      },
+      {
+        "storeCategoryId": 5,
+        "storeId": 9,
+        "imageUrl": "https://hangggg",
+        "name": "쉑쉑"
+      },
+      {
+        "storeCategoryId": 6,
+        "storeId": 10,
+        "imageUrl": "https://hangggg",
+        "name": "슬로우 터틀"
+      }
+    
+    ]
+  }
+],
+    
 
   "Order": [
     {

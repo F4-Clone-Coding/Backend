@@ -43,6 +43,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      location : {
+        allowNull: false,
+        type : Sequelize.STRING(255),
+      }
     });
   },
   async down(queryInterface, Sequelize) {

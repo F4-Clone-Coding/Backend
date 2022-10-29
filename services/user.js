@@ -25,27 +25,27 @@ class UserService {
         };
     }
 
-    kakaoSign = async function(email) {
+    kakaoSign = async function(email, nickname) {
         const user = await User.findKakaoUser(email);
 
         if (user) {
             return {
                 userId: user.get().userId,
-                email: user.get().email,
-                nickname: user.get().nickname
+                email,
+                nickname: nickname.slice(0,10),
             }
             
         } else {
             const newUser = await User.signup({
                 email,
                 password: 'kakao',
-                nickname: email,
+                nickname: nickname.slice(0,10),
                 provider: 'kakao'
             });
             return {
                 userId: newUser.get().userId,
-                email: newUser.get().email,
-                nickname: newUser.get().nickname
+                email,
+                nickname: nickname.slice(0,10),
             };
         }
     }
@@ -62,10 +62,6 @@ class UserService {
         return await User.updateNickname({ userId, nickname });
     }
 
-    profileUpdate = async function(userId, imgPath) {
-        return await User.updateProfImg(userId, imgPath);
-    }
-
     deleteUser = async function() {};
 
     findAll = async function() {
@@ -77,9 +73,7 @@ class UserService {
         return {
             userId: result.userId,
             email: result.email,
-            nickname: result.nickname,
-            profComment: result.profComment,
-            profMypage: result.profMypage
+            nickname: result.nickname
         };
     };
 

@@ -5,6 +5,7 @@ const jwt = require('../utils/jwt');
 // const { addUserToken, removeUserToken } = require('../db/cache');
 const { signupSchema, signinSchema } = require('../utils/validation');
 const { InvalidParamsError } = require('../utils/exception');
+const cookieConfig = require('../utils/cookieConfig');
 
 
 
@@ -95,7 +96,8 @@ class UserController {
 
     localSign = async function(req, res, next) {
         try {
-            const { email, password } = req.body;
+            const { email, password } 
+                = await signinSchema.validateAsync(req.body);
             const payload = await User.signin(email, password)
             if (payload instanceof Error) throw payload;
 
@@ -103,13 +105,8 @@ class UserController {
             const refreshToken = jwt.refresh();
             // await addUserToken(refreshToken, payload.userId);
 
-            const cookieConfig = {
-                httpOnly: true,
-                secure: true,
-                sameSite: true
-            }
-            res.cookies('accessToken', accessToken, cookieConfig);
-            res.cookies('resfreshToken', refreshToken, cookieConfig);
+            res.cookie('accessToken', accessToken, cookieConfig);
+            res.cookie('resfreshToken', refreshToken, cookieConfig);
             res.status(200).json({
                 message: '로그인되었습니다.',
                 accessToken: `Bearer ${accessToken}`,
@@ -132,13 +129,15 @@ class UserController {
                 next(err);
             }
             const { id_token } = JSON.parse(body);
-            const { nickname } = jwt.decode(id_token);
-            const payload = await User.kakaoSign(nickname);            
+            const { email, nickname } = jwt.decode(id_token);
+            const payload = await User.kakaoSign(email, nickname);            
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();
-            await addUserToken(refreshToken, payload.userId);
-
+            // await addUserToken(refreshToken, payload.userId);
+            
+            res.cookie('accessToken', accessToken, cookieConfig);
+            res.cookie('resfreshToken', refreshToken, cookieConfig);
             res.status(200).json({
                 accessToken, refreshToken
             });
@@ -147,7 +146,7 @@ class UserController {
 
     signout = async function(req, res, next) {
         const { refreshToken } = req.params
-        await removeUserToken(refreshToken)
+        // await removeUserToken(refreshToken)
 
         res.status(200).json({
             message: 'SUCCESS'

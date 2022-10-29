@@ -39,12 +39,6 @@ class UserRepository extends User {
         return await User.update({ nickname }, {
             where: { userId }
         });
-    }    
-
-    updateProfImg = async function(userId, [profComment, profMypage]) {
-        return await User.update({ profComment, profMypage }, {
-            where: { userId }
-        });
     }
 
     deleteOne = async function() {}    

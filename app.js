@@ -4,6 +4,7 @@ const logger = require('morgan');
 const env = require('./config.env');
 
 const indexRouter = require('./routes/index');
+const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
 
 const app = express();
 const PORT = env.PORT || 3333;
@@ -18,7 +19,8 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 
-
+app.use(errorLogger);
+app.use(errorHandler);
 
 
 app.listen(PORT, () => {

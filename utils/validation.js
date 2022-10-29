@@ -3,31 +3,32 @@ const Joi = require('joi');
 
 module.exports = {
     signupSchema: Joi.object({
-        username: Joi.string().pattern(/^(?=.*[a-zA-Z])[a-zA-Z0-9_]{2,10}$/).required(),
-        nickname: Joi.string().max(8).required(),
-        password: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{4,20}$/).required(),
-        confirm: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{4,20}$/).required()
+        email: Joi.string().pattern(/^[\w][\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/).required()
+            .messages({
+                "string.pattern.base": "이메일 형식이 맞지 않습니다."
+            }),
+        nickname: Joi.string().min(4).max(10).required()
+        .messages({
+            "string.min": "닉네임은 4~10자입니다.",
+            "string.max": "닉네임은 4~10자입니다."
+        }),
+        password: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/).required()
+        .messages({
+            "string.pattern.base": "비밀번호 형식이 맞지 않습니다."
+        }),
+        confirm: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/).required()
+        .messages({
+            "string.pattern.base": "비밀번호 형식이 맞지 않습니다."
+        })
     }),
     signinSchema: Joi.object({
-        username: Joi.string().pattern(/^(?=.*[a-zA-Z])[a-zA-Z0-9_]{2,10}$/).required(),
-        password: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{4,20}$/).required()
-    }),
-
-    postSchema: Joi.object({
-        title: Joi.string().required()
-            .messages({
-                "string.empty": "제목을 입력해주세요."
-            }),
-        content: Joi.string().required()
-            .messages({
-                "string.empty": "게시글 내용을 입력해주세요."
-            }),
-    }),
-    
-    commentSchema: Joi.object({
-        comment: Joi.string().required()
-            .messages({
-                "string.empty": "댓글 내용을 입력해주세요."
-            }),
+        email: Joi.string().pattern(/^[\w][\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$/).required()
+        .messages({
+            "string.pattern.base": "이메일 형식이 맞지 않습니다."
+        }),
+        password: Joi.string().pattern(/^(?=.*[a-zA-Z])[0-9a-zA-Z]{8,20}$/).required()
+        .messages({
+            "string.pattern.base": "비밀번호 형식이 맞지 않습니다."
+        }),
     }),
 }

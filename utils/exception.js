@@ -1,7 +1,7 @@
 class InvalidParamsError extends Error {
-    constructor(message, code) {
+    constructor(message, statusCode) {
         super(message);
-        this.statusCode = code || 400;
+        this.statusCode = statusCode || 400;
         if (!message) this.message = '요청한 데이터 형식이 올바르지 않습니다.';
     }
 }

@@ -2,21 +2,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Orders', {
-      orderId: {
+    await queryInterface.createTable('Menus', {
+      menuId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      userId: {
-        allowNull: false,
         type: Sequelize.SMALLINT.UNSIGNED,
-        references: {
-          model: 'Users',
-          key: 'userId',
-        },
-        onDelete: 'cascade',
       },
       storeId: {
         allowNull: false,
@@ -27,39 +18,38 @@ module.exports = {
         },
         onDelete: 'cascade',
       },
-      records: {
-        allowNull: false,
-        type: Sequelize.JSON
-      },
-      createdAt: {
+      menuCategoryId: {
         allowNull: false,
         type: Sequelize.SMALLINT.UNSIGNED,
         references: {
-          model: 'Users',
-          key: 'userId',
+          model: 'MenuCategories',
+          key: 'menuCategoryId',
         },
         onDelete: 'cascade',
       },
-      storeId: {
+      name: {
         allowNull: false,
-        type: Sequelize.SMALLINT.UNSIGNED,
-        references: {
-          model: 'Stores',
-          key: 'storeId',
-        },
-        onDelete: 'cascade',
+        type: Sequelize.STRING(40),
+      },
+      price: {
+        allowNull: false,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
+      },
+      image: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Orders');
-  }
+    await queryInterface.dropTable('Menus');
+  },
 };

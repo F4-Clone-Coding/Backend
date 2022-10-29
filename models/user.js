@@ -40,6 +40,6 @@ User.init({
     sequelize,
     modelName: 'User',
   });
-  
+
   return User;
 };

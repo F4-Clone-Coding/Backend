@@ -3,6 +3,18 @@ const OrderRepository = require('../repositories/order');
 class OrderService {
   orderRepository = new OrderRepository();
 
+  findOrderRecordsById = async(orderId) => {
+    const foundOrder = await this.orderRepository.findOrderById(orderId);
+    
+    const result = foundOrder.get().records
+    console.log(JSON.parse(result))
+
+    const data = JSON.parse(result)
+
+    return data
+  }
+
+
   //주문생성
   createOrder = async (userId, storeId, order) => {
 

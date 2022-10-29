@@ -1,10 +1,14 @@
-const {Category} = require('../models')
-
+const { Category,Store } = require('../models')
   class CategoryRepositories {
 
-  //전체 주문 조회
-  findAllCategory = async () =>{
-    return await Category.findAll({})
+  //전체 카테 고리 조회
+  findAllCategories = async () =>{
+    return await Category.findAll()
+  }
+  //카테고리에 해당하는 매장 조회
+  findOneCategory = async (categoryId) =>{
+    console.log(categoryId)
+    return await Category.findAll({where : { categoryId},include : {model : Store}})
   }
 
   }

@@ -4,9 +4,9 @@ const authMiddleware = require("../middlewares/authMiddleware")
 const CategoryController = require("../controllers/category")
 const categorycontroller = new CategoryController()
 // 전체 리스트 요청
-router.get("/",)
+router.get("/",categorycontroller.findAllCategories)
 
-//카테고리의 매장 리스트
-router.get("/:categoryId")
+//카테고리에 해당하는 매장 조회
+router.get("/:categoryId",categorycontroller.findOneCategory)
 
 module.exports = router;

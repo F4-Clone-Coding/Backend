@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'categoryId',
         targetKey: 'categoryId',
       });
+      this.hasMany(models.Menu,{
+        sourceKey: 'storeId',
+        foreignKey : 'storeId',
+      })
     }
   }
   Store.init(

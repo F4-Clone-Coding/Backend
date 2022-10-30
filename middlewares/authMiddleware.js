@@ -65,6 +65,8 @@ module.exports = async (req, res, next) => {
 
     if (payload) {
       req.app.locals.user = payload;
+      const { userId } = payload;
+      req.session.num = userId;
       next();
     }
 
@@ -80,7 +82,8 @@ module.exports = async (req, res, next) => {
       if (verifyRefresh) {
         //전달안됨 //const {userId} = req.app.locals.user;
         //전달 안됨 //const userInfo = tokenObject[refreshToken];
-        console.log("access만료, refresh생존", userId);
+        const userId = req.session.num;
+        console.log("access만료, refresh생존, userId:", userId);
 
         /**refreshToken은 정상이지만 acessToken이 만료되도록 2시간동안 한번도 authMiddleware를 거쳐간 적이 없는 경우 **/
         if (!userId) {
@@ -89,12 +92,17 @@ module.exports = async (req, res, next) => {
 
         /**유저정보 DB에서 찾아오기*/
         const userInfo = await UserRepo.findOne(userId);
+        const user = {
+          userId: userInfo.userId,
+          email: userInfo.email,
+          nickname: userInfo.nickname,
+        };
 
         /**AccessToken 재발급 */
-        const newAccessToken = jwt.sign(userInfo);
+        const newAccessToken = jwt.sign(user);
 
         /**로그인 유저정보 다시 저장 */
-        req.app.locals.user = userInfo;
+        req.app.locals.user = user;
 
         /**새로 발급받은 토큰전송 */
         res.cookie("accessToken", newAccessToken, cookieConfig);
@@ -103,7 +111,6 @@ module.exports = async (req, res, next) => {
           accessToken: `Bearer ${accessToken}`,
         });
         console.log("accessToken 재발급");
-
       }
     }
   } catch (error) {

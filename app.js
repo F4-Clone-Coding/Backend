@@ -1,4 +1,6 @@
 const express = require('express');
+const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sequelize = require('./db/config/connection');
@@ -15,6 +17,17 @@ app.use(logger('dev'));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+    session({
+      secret: env.SESSION_KEY,
+      resave: false,
+      saveUninitialized: true,
+      store: new MemoryStore({
+        checkPeriod: 86400000,
+      }),
+      cookie: {maxAge: 86400000}
+    })
+  );
 
 app.use('/', indexRouter);
 

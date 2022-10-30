@@ -8,7 +8,12 @@ const sequelize = new Sequelize({
     username: DB_USER,
     password: DB_PASSWORD,
     dialect: 'mysql',
-    port: 3306
+    port: 3306,
+    timezone: "+09:00",
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true
+  }
 });
 
 

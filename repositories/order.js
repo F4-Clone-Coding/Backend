@@ -11,7 +11,7 @@ class OrderRepository {
   findOneOrder = async ( orderId ) => {
     const foundOneOrder = await Order.findOne({ 
       where: { orderId },
-      attributes: {exclude: ["userId", "storeId", "updatedAt"]}, 
+      attributes: {exclude: ["userId", "storeId"]}, 
       //orderId, records, createdAt만 전달
 
       include : [{

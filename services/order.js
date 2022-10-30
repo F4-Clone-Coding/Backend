@@ -45,7 +45,7 @@ class OrderService {
       storePhone: foundOrder.Store.storePhone,
       menuList,
     };
-    console.log(data);
+    console.log('orderService findOneOrder',data);
 
     return data;
   };

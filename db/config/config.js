@@ -7,11 +7,6 @@ module.exports = {
     database: env.DB_NAME,
     host: env.DB_HOST,
     dialect: 'mysql',
-    timezone: "+09:00",
-    dialectOptions: {
-      dateStrings: true,
-      typeCast: true
-  }
   },
   test: {
     username: env.DB_USER,

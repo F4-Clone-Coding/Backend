@@ -4,6 +4,9 @@ const env = require("../config.env");
 // const { findUserByToken } = require('../db/cache');
 const { InvalidAccessError } = require("../utils/exception");
 const cookieConfig = require("../utils/cookieConfig");
+const { redisClient } = require("../utils/session");
+const redisCli = redisClient.v4
+
 
 // module.exports = async (req, res, next) => {
 //   const { authorization, refreshtoken } = req.headers;
@@ -66,7 +69,9 @@ module.exports = async (req, res, next) => {
     if (payload) {
       req.app.locals.user = payload;
       const { userId } = payload;
-      req.session.num = userId;
+      // req.session.num = userId;
+      // console.log(req.session)
+      await redisCli.set('userId', userId);
       next();
     }
 
@@ -81,8 +86,10 @@ module.exports = async (req, res, next) => {
       }
       if (verifyRefresh) {
         //전달안됨 //const {userId} = req.app.locals.user;
-        //전달 안됨 //const userInfo = tokenObject[refreshToken];
-        const userId = req.session.num;
+        //전달안됨 //const {userId} = res.locals.user;
+        //전달안됨 //const userInfo = tokenObject[refreshToken];
+        //전달가능하지만 양심상 못씀 // const userId = req.session.num;
+        const userId = await redisCli.get('userId')
         console.log("access만료, refresh생존, userId:", userId);
 
         /**refreshToken은 정상이지만 acessToken이 만료되도록 2시간동안 한번도 authMiddleware를 거쳐간 적이 없는 경우 **/

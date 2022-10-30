@@ -1,11 +1,11 @@
 const express = require('express');
 const session = require("express-session");
-const MemoryStore = require("memorystore")(session);
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sequelize = require('./db/config/connection');
 const env = require('./config.env');
 
+const { sessionInfo } = require('./utils/session')
 const indexRouter = require('./routes/index');
 const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
 
@@ -17,17 +17,7 @@ app.use(logger('dev'));
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-    session({
-      secret: env.SESSION_KEY,
-      resave: false,
-      saveUninitialized: true,
-      store: new MemoryStore({
-        checkPeriod: 86400000,
-      }),
-      cookie: {maxAge: 86400000}
-    })
-  );
+app.use(session(sessionInfo))
 
 app.use('/', indexRouter);
 

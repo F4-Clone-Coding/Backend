@@ -27,10 +27,6 @@ module.exports = {
         type: Sequelize.STRING(40),
         defaultValue: 'local'
       },
-      location: {
-        type: Sequelize.STRING(255),
-        allowNull: true
-      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     });

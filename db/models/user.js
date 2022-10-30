@@ -1,6 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
@@ -37,10 +38,6 @@ User.init({
     provider: {
       type: DataTypes.STRING(40),
       defaultValue: 'local'
-    },
-    location: {
-      type: DataTypes.STRING(255),
-      allowNull: true
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE

@@ -91,7 +91,7 @@ class UserController {
 
     localSign = async function(req, res, next) {
         try {
-            const { email, password } 
+            const { email, password, location } 
                 = await signinSchema.validateAsync(req.body);
             const payload = await UserService.signin(email, password)
             if (payload instanceof Error) throw payload;

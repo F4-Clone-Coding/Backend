@@ -8,7 +8,6 @@ dotenv.config();
 
 const redisClient = redis.createClient({
   //port: 6379,
-  ttl: 60 * 60,
   //disableTouch: true,
   url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PW}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
   logErrors: true,

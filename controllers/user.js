@@ -102,7 +102,7 @@ class UserController {
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();
-            await redisCli.set(refreshToken, payload.userId) //key refreshToken value userId
+            await redisCli.set(refreshToken, payload.userId); //key refreshToken value userId
             // await addUserToken(refreshToken, payload.userId);
 
             res.cookie('accessToken', accessToken, cookieConfig);

@@ -70,10 +70,6 @@ module.exports = async (req, res, next) => {
 
     if (payload) {
       req.app.locals.user = payload;
-      const { userId } = payload;
-      //req.session.num = userId;
-      //console.log(req.session)
-      await redisCli.set(refToken, userId) //key refreshToken value userId
       next();
     }
 
@@ -87,11 +83,10 @@ module.exports = async (req, res, next) => {
         next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
       }
       if (verifyRefresh) {
-        //전달안됨 //const {userId} = req.app.locals.user;
-        //전달안됨 //const {userId} = res.locals.user;
-        //전달안됨 //const userInfo = tokenObject[refreshToken];
-        //전달가능하지만 양심상 못씀 // const userId = req.session.num;
-        //console.log(req.sesson.num)
+        //전달안됨1 //const {userId} = req.app.locals.user;
+        //전달안됨2 //const {userId} = res.locals.user;
+        //전달안됨3 //const userInfo = tokenObject[refreshToken];
+        //전달안됨4 //const test = req.session.userId
         const userId = await redisCli.get(refToken)
         console.log("access만료, refresh생존, userId:", userId);
 

@@ -35,11 +35,23 @@ module.exports = {
         allowNull: true,
         type: Sequelize.TEXT,
       },
-      location : {
-        allowNull: true,
-        type : Sequelize.STRING(255),
+      viewTotal : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
       },
-      openHour: {
+      viewRecent : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      score : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      openHrInfo: {
+        allowNull: true,
         type: Sequelize.STRING(255),
       },
       createdAt: {
@@ -47,8 +59,12 @@ module.exports = {
         type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
+      },
+      location: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
       },
     });
   },

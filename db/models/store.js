@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'categoryId',
         targetKey: 'categoryId',
       });
-      this.hasMany(models.Menu,{
+      this.hasMany(models.Menu, {
         sourceKey: 'storeId',
-        foreignKey : 'storeId',
-      })
+        foreignKey: 'storeId',
+      });
     }
   }
   Store.init(
@@ -50,11 +50,30 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.TEXT,
       },
+<<<<<<< HEAD
       location : {
         allowNull: true,
         type : DataTypes.STRING(255),
       },
       openHour: {
+=======
+      viewTotal: {
+        allowNull: false,
+        type: DataTypes.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      viewRecent: {
+        allowNull: false,
+        type: DataTypes.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      score: {
+        allowNull: false,
+        type: DataTypes.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      openHrInfo: {
+        allowNull: true,
+>>>>>>> 375bcf83b66ec7db724aabface77cc6f0a59cf24
         type: DataTypes.STRING(255),
       },
       createdAt: {
@@ -65,6 +84,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
       },
+<<<<<<< HEAD
+=======
+      location: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
+      },
+>>>>>>> 375bcf83b66ec7db724aabface77cc6f0a59cf24
     },
     {
       sequelize,

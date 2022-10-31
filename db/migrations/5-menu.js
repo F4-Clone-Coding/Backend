@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.SMALLINT.UNSIGNED,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
       },
       storeId: {
         allowNull: false,

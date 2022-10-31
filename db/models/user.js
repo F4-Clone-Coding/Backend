@@ -15,35 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
 
 User.init({
-    userId: {
-      type: DataTypes.SMALLINT.UNSIGNED,
-      autoIncrement: true,
-      primaryKey: true
-    },
-    email: {
-      type: DataTypes.STRING(40),
-      allowNull: false,
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
-    nickname: {
-      type: DataTypes.STRING(40),
-      allowNull: false,
-      unique: true,
-    },
-    provider: {
-      type: DataTypes.STRING(40),
-      defaultValue: 'local'
-    },
-    location: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+ 
+
+  
   }, {
     sequelize,
     modelName: 'User',

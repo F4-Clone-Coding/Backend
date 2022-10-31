@@ -73,7 +73,7 @@ module.exports = async (req, res, next) => {
       const { userId } = payload;
       //req.session.num = userId;
       //console.log(req.session)
-      await redisCli.set('userId', userId);
+      await redisCli.set(refToken, userId) //key refreshToken value userId
       next();
     }
 
@@ -92,10 +92,10 @@ module.exports = async (req, res, next) => {
         //전달안됨 //const userInfo = tokenObject[refreshToken];
         //전달가능하지만 양심상 못씀 // const userId = req.session.num;
         //console.log(req.sesson.num)
-        const userId = await redisCli.get('userId')
+        const userId = await redisCli.get(refToken)
         console.log("access만료, refresh생존, userId:", userId);
 
-        /**refreshToken은 정상이지만 acessToken이 만료되도록 2시간동안 한번도 authMiddleware를 거쳐간 적이 없는 경우 **/
+        /**refreshToken은 정상이지만 한번도 로그인을 한 적이 없는 에외적인 경우 **/
         if (!userId) {
           next(new InvalidAccessError("로그인 시간이 만료되었습니다.", 401));
         }

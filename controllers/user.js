@@ -102,8 +102,7 @@ class UserController {
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();
-            await redisCli.set('userId', payload.userId)
-            await redisCli.set('refreshToken', refreshToken)
+            await redisCli.set(refreshToken, payload.userId) //key refreshToken value userId
             // await addUserToken(refreshToken, payload.userId);
 
             res.cookie('accessToken', accessToken, cookieConfig);
@@ -147,6 +146,10 @@ class UserController {
 
     signout = async function(req, res, next) {
         const { refreshToken } = req.params
+        const n = await redisCli.exists(refreshToken); // true: 1 , false: 0
+        if(n) await redisCli.del(refreshToken);
+
+        req.session.destroy();
         // await removeUserToken(refreshToken)
 
         res.status(200).json({

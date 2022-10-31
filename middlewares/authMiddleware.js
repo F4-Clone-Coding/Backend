@@ -52,11 +52,13 @@ const redisCli = redisClient.v4
 module.exports = async (req, res, next) => {
   console.log("TEMP AUTH MIDDLEWARE");
 
-  const authorization = JSON.parse(req.headers.authorization);
+  const { authorization, refreshtoken } = req.headers;
+
   console.log("헤더 authorization :", authorization);
-  const { accessToken, refreshToken } = authorization;
-  const [accType, accToken] = (accessToken || "").split(" ");
-  const [refType, refToken] = (refreshToken || "").split(" ");
+  console.log("헤더 refreshtoken :", refreshtoken);
+
+  const [accType, accToken] = (authorization || "").split(" ");
+  const [refType, refToken] = (refreshtoken || "").split(" ");
 
   if (accType !== "Bearer" || refType !== "Bearer") {
     next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
@@ -69,8 +71,8 @@ module.exports = async (req, res, next) => {
     if (payload) {
       req.app.locals.user = payload;
       const { userId } = payload;
-      // req.session.num = userId;
-      // console.log(req.session)
+      //req.session.num = userId;
+      //console.log(req.session)
       await redisCli.set('userId', userId);
       next();
     }
@@ -89,6 +91,7 @@ module.exports = async (req, res, next) => {
         //전달안됨 //const {userId} = res.locals.user;
         //전달안됨 //const userInfo = tokenObject[refreshToken];
         //전달가능하지만 양심상 못씀 // const userId = req.session.num;
+        //console.log(req.sesson.num)
         const userId = await redisCli.get('userId')
         console.log("access만료, refresh생존, userId:", userId);
 
@@ -113,13 +116,16 @@ module.exports = async (req, res, next) => {
 
         /**새로 발급받은 토큰전송 */
         res.cookie("accessToken", newAccessToken, cookieConfig);
-        res.json({
-          message: "acessToken 재발급",
-          accessToken: `Bearer ${accessToken}`,
-        });
+        // res.json({
+        //   message: "acessToken 재발급",
+        //   accessToken: `Bearer ${newAccessToken}`,
+        // });
         console.log("accessToken 재발급");
+
+        next()
       }
     }
+
   } catch (error) {
     next(error);
   }

@@ -18,7 +18,7 @@ class OrderService {
 
     const menuList = [];
 
-    const promises = parsedRecords.map(async (record) => {
+    const promises = parsedRecords.map(async(record) => {
       let menuId = record.menuId;
       let count = record.count;
 
@@ -34,6 +34,8 @@ class OrderService {
         return menuList.push(Menu);
       }
     });
+
+    console.log(promises)
 
     await Promise.all(promises);
 

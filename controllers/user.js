@@ -6,6 +6,10 @@ const jwt = require('../utils/jwt');
 const { signupSchema, signinSchema } = require('../utils/validation');
 const { InvalidParamsError } = require('../utils/exception');
 const cookieConfig = require('../utils/cookieConfig');
+const { redisClient } = require("../utils/session");
+const redisCli = redisClient.v4
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 class UserController {
@@ -16,7 +20,7 @@ class UserController {
             if (password !== confirm)
                 throw new InvalidParamsError('비밀번호가 일치하지 않습니다.');
     
-            await UserService.signup({ email, password, nickname });
+            await UserService.signup({ email, password, nickname });       
     
             res.status(200).json({
                 message: 'SUCCESS'
@@ -98,6 +102,8 @@ class UserController {
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();
+            await redisCli.set('userId', payload.userId)
+            await redisCli.set('refreshToken', refreshToken)
             // await addUserToken(refreshToken, payload.userId);
 
             res.cookie('accessToken', accessToken, cookieConfig);

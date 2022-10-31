@@ -7,25 +7,24 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const redisClient = redis.createClient({
-  port: 6379,
+  //port: 6379,
   disableTouch: true,
-  //url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PW}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
+  url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PW}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
   logErrors: true,
-  legacyMode: true,
-}); // legacy 모드 확인 필요
+  legacyMode: true, // legacy 모드: redus v4 이전의 활용법들과 호환되게 해줌. 
+}); 
 redisClient.on("connect", () => {
   console.info("Redis connected!");
 });
 redisClient.on("error", (err) => {
   console.error("Redis Client Error", err);
 });
-redisClient.connect().then(); // redis v4 연결 (비동기)
-const redisCli = redisClient.v4; // 기본 redisClient 객체는 콜백기반인데 v4버젼은 프로미스 기반이라 사용
-
+redisClient.connect().then(); // redis v4 연결 (비동기)(없으면 멋진 에러 구경가능)
+const redisCli = redisClient.v4; // v4버젼부터 프로미스 기반. 거의 새로운 패키지가 된 셈이라는 소문을 들음.
 
 
 const sessionInfo = {
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   secret: env.SESSION_KEY,
   cookie: {

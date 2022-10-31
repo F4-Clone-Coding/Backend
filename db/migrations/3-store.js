@@ -37,14 +37,14 @@ module.exports = {
       },
       openHrInfo: {
         allowNull: true,
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING(255),
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
       location: {

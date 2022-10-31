@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       openHrInfo: {
         allowNull: true,
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(255),
       },
       createdAt: {
         allowNull: false,

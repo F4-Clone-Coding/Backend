@@ -1,4 +1,4 @@
-const data = require('../test.js');
+const data = require('../../test.js');
 
 ('use strict');
 

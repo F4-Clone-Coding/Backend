@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       storeId: {
         allowNull: false,
-        type: DataTypes.SMALLINT.UNSIGNED,
+        type: DataTypes.MEDIUMINT.UNSIGNED,
         references: {
           model: 'Stores',
           key: 'storeId',

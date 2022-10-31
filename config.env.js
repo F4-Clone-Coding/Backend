@@ -36,10 +36,16 @@ class Env extends dbConnection {
         super();
 
         this.PORT = process.env.PORT;
+        this.DOMAIN = process.env.DOMAIN;
 
         this.JWT_KEY = process.env.JWT_KEY;
         this.SALT_ROUND = Number(process.env.SALT_ROUND);
         this.SESSION_KEY = process.env.SESSION_KEY;
+
+        this.REDIS_HOST = process.env.REDIS_HOST;
+        this.REDIS_PORT = process.env.REDIS_PORT;
+        this.REDIS_PW = process.env.REDIS_PW;
+        this.REDIS_USERNAME = process.env.REDIS_USERNAME;
 
         this.ROOT = __dirname;
     }

@@ -10,9 +10,8 @@ module.exports = {
         type: Sequelize.SMALLINT.UNSIGNED,
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING(40),
-      },
+      },   
     });
   },
   async down(queryInterface, Sequelize) {

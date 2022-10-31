@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.SMALLINT.UNSIGNED,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
       },
       categoryId: {
         allowNull: false,
@@ -22,18 +22,26 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(40),
       },
+      imageUrl: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
+      },
       contact: {
         allowNull: false,
         type: Sequelize.STRING(40),
         defaultValue: '112',
       },
-      imageUrl: {
+      openHour: {
         allowNull: true,
-        type: Sequelize.STRING(255),
+        type: Sequelize.TEXT,
       },
       description: {
         allowNull: true,
         type: Sequelize.TEXT,
+      },
+      location: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
       },
       viewTotal : {
         allowNull: false,
@@ -50,21 +58,10 @@ module.exports = {
         type: Sequelize.SMALLINT.UNSIGNED,
         defaultValue: 0,
       },
-      openHrInfo: {
-        allowNull: true,
-        type: Sequelize.STRING(255),
-      },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: true,
-        type: Sequelize.DATE,
-      },
-      location: {
-        allowNull: true,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING,
+        defaultValue: new Date().toLocaleDateString(),
       },
     });
   },

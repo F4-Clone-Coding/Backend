@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.SMALLINT.UNSIGNED,
+        type: DataTypes.MEDIUMINT.UNSIGNED,
       },
       categoryId: {
         allowNull: false,
@@ -36,19 +36,27 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(40),
       },
-      contact: {
-        allowNull: false,
-        type: DataTypes.STRING(40),
-        defaultValue: '112',
-      },
       imageUrl: {
         allowNull: true,
         type: DataTypes.STRING(255),
         // defaultValue
       },
+      contact: {
+        allowNull: false,
+        type: DataTypes.STRING(40),
+        defaultValue: '112',
+      },
+      openHour: {
+        allowNull: true,
+        type: DataTypes.TEXT,
+      },
       description: {
         allowNull: true,
         type: DataTypes.TEXT,
+      },
+      location: {
+        allowNull: false,
+        type: DataTypes.STRING(255),
       },
       viewTotal: {
         allowNull: false,
@@ -64,27 +72,17 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
         defaultValue: 0
-      },
-      openHrInfo: {
-        allowNull: true,
-        type: DataTypes.STRING(255),
-      },
+      },      
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      location: {
-        allowNull: false,
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING,
+        defaultValue: new Date().toLocaleDateString(),
       },
     },
     {
       sequelize,
       modelName: 'Store',
+      updatedAt: false,
     }
   );
   return Store;

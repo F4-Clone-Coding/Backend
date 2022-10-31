@@ -9,7 +9,7 @@ dotenv.config();
 const redisClient = redis.createClient({
   //port: 6379,
   //disableTouch: true,
-  url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PW}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
+  url: `redis://${env.REDIS_USERNAME}:${env.REDIS_PW}@${env.REDIS_HOST}:${env.REDIS_PORT}/0`,
   logErrors: true,
   legacyMode: true, // legacy 모드: redus v4 이전의 활용법들과 호환되게 해줌. 
 }); 

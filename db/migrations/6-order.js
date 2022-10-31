@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.SMALLINT.UNSIGNED
       },
       userId: {
         allowNull: false,
@@ -20,7 +20,7 @@ module.exports = {
       },
       storeId: {
         allowNull: false,
-        type: Sequelize.SMALLINT.UNSIGNED,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
         references: {
           model: 'Stores',
           key: 'storeId',
@@ -30,15 +30,6 @@ module.exports = {
       records: {
         allowNull: false,
         type: Sequelize.JSON
-      },
-      storeId: {
-        allowNull: false,
-        type: Sequelize.SMALLINT.UNSIGNED,
-        references: {
-          model: 'Stores',
-          key: 'storeId',
-        },
-        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,

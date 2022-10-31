@@ -11,7 +11,7 @@ module.exports = {
       },
       storeId: {
         allowNull: false,
-        type: Sequelize.SMALLINT.UNSIGNED,
+        type: Sequelize.MEDIUMINT.UNSIGNED,
         references: {
           model: 'Stores',
           key: 'storeId',
@@ -28,24 +28,16 @@ module.exports = {
         onDelete: 'cascade',
       },
       name: {
-        allowNull: false,
         type: Sequelize.STRING(40),
+        allowNull: false,
       },
       price: {
-        allowNull: false,
         type: Sequelize.MEDIUMINT.UNSIGNED,
+        allowNull: false,
       },
       image: {
-        allowNull: true,
         type: Sequelize.STRING(255),
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
+        allowNull: true,
       },
     });
   },

@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'cascade',
       },
       storeId: {
-        type: DataTypes.SMALLINT.UNSIGNED,
+        type: DataTypes.MEDIUMINT.UNSIGNED,
         allowNull: false,
         references: {
           model: 'Stores',

@@ -11,15 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
-  Category.init(
-    {
-
-
-      
+  Category.init({
+      categoryId: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.SMALLINT.UNSIGNED,
+      },
+      name: {
+        type: DataTypes.STRING(40),
+      },   
     },
     {
       sequelize,
       modelName: 'Category',
+      timestamps: false,
     }
   );
   return Category;

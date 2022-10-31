@@ -11,9 +11,10 @@ const sequelize = new Sequelize({
     port: 3306,
     timezone: "+09:00",
     dialectOptions: {
-      dateStrings: true,
-      typeCast: true
-  }
+        dateStrings: true,
+        typeCast: true
+    },
+    // logging: false,
 });
 
 

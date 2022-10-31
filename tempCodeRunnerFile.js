@@ -1,0 +1,1 @@
+  // v.price = v.price.slice(1, v.price.length);

@@ -35,6 +35,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.TEXT,
       },
+      openHrInfo: {
+        allowNull: true,
+        type: Sequelize.STRING(100),
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -42,6 +46,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+      },
+      location: {
+        allowNull: true,
+        type: Sequelize.STRING(255),
       },
     });
   },

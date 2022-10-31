@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'categoryId',
         targetKey: 'categoryId',
       });
-      this.hasMany(models.Menu,{
+      this.hasMany(models.Menu, {
         sourceKey: 'storeId',
-        foreignKey : 'storeId',
-      })
+        foreignKey: 'storeId',
+      });
     }
   }
   Store.init(
@@ -48,6 +48,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.TEXT,
       },
+      openHrInfo: {
+        allowNull: true,
+        type: DataTypes.STRING(100),
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
@@ -56,10 +60,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
       },
-      location : {
-        allowNull: false,
-        type : DataTypes.STRING(255),
-      }
+      location: {
+        allowNull: true,
+        type: DataTypes.STRING(255),
+      },
     },
     {
       sequelize,

@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Store.init(
     {
-<<<<<<< HEAD
       storeId: {
         allowNull: false,
         autoIncrement: true,
@@ -51,13 +50,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.TEXT,
       },
-<<<<<<< HEAD
-      location : {
-        allowNull: true,
-        type : DataTypes.STRING(255),
-      },
-      openHour: {
-=======
       viewTotal: {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
@@ -71,10 +63,10 @@ module.exports = (sequelize, DataTypes) => {
       score: {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
-        defaultValue: 0,
+        defaultValue: 0
+      },
       openHrInfo: {
         allowNull: true,
->>>>>>> 375bcf83b66ec7db724aabface77cc6f0a59cf24
         type: DataTypes.STRING(255),
       },
       createdAt: {
@@ -85,18 +77,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.DATE,
       },
-<<<<<<< HEAD
-=======
       location: {
         allowNull: false,
         type: DataTypes.STRING(255),
       },
->>>>>>> 375bcf83b66ec7db724aabface77cc6f0a59cf24
-=======
-
-
-      
->>>>>>> ec202c5852c2a76fc3be8a7061dd14b83107df50
     },
     {
       sequelize,

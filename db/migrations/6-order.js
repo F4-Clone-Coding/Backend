@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       userId: {
         allowNull: false,
@@ -29,8 +29,26 @@ module.exports = {
       },
       records: {
         allowNull: false,
-        type: Sequelize.JSON,
+        type: Sequelize.JSON
       },
+      storeId: {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        references: {
+          model: 'Stores',
+          key: 'storeId',
+        },
+        onDelete: 'cascade',
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      }
+
     });
   },
   async down(queryInterface, Sequelize) {

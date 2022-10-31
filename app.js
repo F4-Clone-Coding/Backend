@@ -24,7 +24,7 @@ app.use(errorHandler);
 
 app.listen(PORT, async() => {
     console.log(`SERVER RUNNING ON PORT ${PORT}`);
-    console.log(env);
+    // console.log(env);
 
     try {
         await sequelize.authenticate();

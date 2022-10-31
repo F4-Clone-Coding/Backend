@@ -12,16 +12,7 @@ module.exports = {
       name: {
         allowNull: false,
         type: Sequelize.STRING(40),
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
-      storeId: {
-        type: Sequelize.SMALLINT.UNSIGNED,
-        allowNull: false,
-        type: Sequelize.DATE,
-      },
+      }
     });
   },
   async down(queryInterface, Sequelize) {

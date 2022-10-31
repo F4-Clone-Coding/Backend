@@ -8,7 +8,8 @@ const sequelize = new Sequelize({
     username: DB_USER,
     password: DB_PASSWORD,
     dialect: 'mysql',
-    port: 3306
+    port: 3306,
+    // logging: false,
 });
 
 

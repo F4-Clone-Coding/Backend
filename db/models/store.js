@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING(40),
       },
-      storePhone: {
+      contact: {
         allowNull: false,
         type: DataTypes.STRING(40),
         defaultValue: '112',
@@ -53,6 +53,9 @@ module.exports = (sequelize, DataTypes) => {
       location : {
         allowNull: true,
         type : DataTypes.STRING(255),
+      },
+      openHour: {
+        type: DataTypes.STRING(255),
       },
       createdAt: {
         allowNull: false,

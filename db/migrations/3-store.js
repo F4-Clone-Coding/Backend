@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(40),
       },
-      storePhone: {
+      contact: {
         allowNull: false,
         type: Sequelize.STRING(40),
         defaultValue: '112',
@@ -38,6 +38,9 @@ module.exports = {
       location : {
         allowNull: true,
         type : Sequelize.STRING(255),
+      },
+      openHour: {
+        type: Sequelize.STRING(255),
       },
       createdAt: {
         allowNull: false,

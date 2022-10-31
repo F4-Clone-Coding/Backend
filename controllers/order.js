@@ -41,10 +41,9 @@ class OrderController {
    */
   createOrder = async (req, res, next) => {
     try {
-      //const { userId } = res.locals.user;
+      const { userId } = req.app.locals.user;
       //const { order } = req.body.order;
       const { storeId } = req.params;
-      let userId = 1;
 
       let order = [
         {

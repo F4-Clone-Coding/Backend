@@ -18,7 +18,7 @@ class OrderService {
 
     const menuList = [];
 
-    const promises = parsedRecords.map(async (record) => {
+    const promises = parsedRecords.map(async(record) => {
       let menuId = record.menuId;
       let count = record.count;
 
@@ -35,6 +35,8 @@ class OrderService {
       }
     });
 
+    console.log(promises)
+
     await Promise.all(promises);
 
     const data = {
@@ -45,7 +47,7 @@ class OrderService {
       storePhone: foundOrder.Store.storePhone,
       menuList,
     };
-    console.log(data);
+    console.log('orderService findOneOrder',data);
 
     return data;
   };

@@ -6,16 +6,18 @@ class Jwt {
     sign = function(payload) {
         return jwt.sign(payload, env.JWT_KEY, {
             algorithm: 'HS256',
-            expiresIn: 60*60*2
+            expiresIn: 30
         });
     }
     verify = function(token) {
-        const result = jwt.verify(token, env.JWT_KEY);
-        
-        if (result instanceof Error) {
-            throw result;
+        try{
+            const result = jwt.verify(token, env.JWT_KEY);
+            return result;
+        }catch(error){
+            if(error.name === 'TokenExpiredError'){
+                return null;
+            }
         }
-        return result;
     }
     refresh = function() {
         return jwt.sign({}, env.JWT_KEY, {

@@ -1,10 +1,13 @@
 const express = require('express');
+const session = require("express-session");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const sequelize = require('./db/config/connection');
-const env = require('./config.env');
 const fs = require('fs');
 const HTTPS = require('https');
+
+const env = require('./config.env');
+const { sessionInfo } = require('./utils/session')
+const sequelize = require('./db/config/connection');
 const indexRouter = require('./routes/index');
 const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
 
@@ -12,12 +15,23 @@ const app = express();
 const PORT = env.PORT || 3333;
 const DOMAIN = env.DOMAIN;
 
+
 // middlewares
 app.use(logger('dev'));
-app.use(express.json(), cookieParser());
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(session(sessionInfo))
+
+
 app.use('/', indexRouter);
 app.use(errorLogger, errorHandler);
 
+
+app.use(errorLogger);
+app.use(errorHandler);
+
+    
 if (env.MODE == 'development') {
     try {
         const option = {

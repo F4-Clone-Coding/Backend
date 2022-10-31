@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Store.init(
     {
+<<<<<<< HEAD
       storeId: {
         allowNull: false,
         autoIncrement: true,
@@ -91,6 +92,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
       },
 >>>>>>> 375bcf83b66ec7db724aabface77cc6f0a59cf24
+=======
+
+
+      
+>>>>>>> ec202c5852c2a76fc3be8a7061dd14b83107df50
     },
     {
       sequelize,

@@ -17,38 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Order.init(
     {
-      orderId: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.SMALLINT.UNSIGNED,
-      },
-      userId: {
-        type: DataTypes.SMALLINT.UNSIGNED,
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'userId',
-        },
-        onDelete: 'cascade',
-      },
-      storeId: {
-        type: DataTypes.SMALLINT.UNSIGNED,
-        allowNull: false,
-        references: {
-          model: 'Stores',
-          key: 'storeId',
-        },
-        onDelete: 'cascade',
-      },
-      records: {
-        type: DataTypes.JSON, 
-        allowNull : false,      
-      },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
+
+      
     },
     {
       sequelize,

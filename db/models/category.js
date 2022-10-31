@@ -13,23 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Category.init(
     {
-      categoryId: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: DataTypes.SMALLINT.UNSIGNED,
-      },
-      name: {
-        type: DataTypes.STRING(40),
-      },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
+
+
+      
     },
     {
       sequelize,

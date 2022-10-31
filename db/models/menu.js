@@ -49,18 +49,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(255),
         allowNull: true,
       },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-      },
     },
     {
       sequelize,
       modelName: 'Menu',
+      timestamps : false,
     }
   );
   return Menu;

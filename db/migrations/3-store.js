@@ -35,6 +35,21 @@ module.exports = {
         allowNull: true,
         type: Sequelize.TEXT,
       },
+      viewTotal : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      viewRecent : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
+      score : {
+        allowNull: false,
+        type: Sequelize.SMALLINT.UNSIGNED,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

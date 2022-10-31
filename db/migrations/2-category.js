@@ -19,4 +19,3 @@ module.exports = {
     await queryInterface.dropTable('Categories');
   },
 };
-

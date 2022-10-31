@@ -62,6 +62,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
         defaultValue: 0,
+      openHrInfo: {
+        allowNull: true,
+        type: DataTypes.STRING(255),
       },
       createdAt: {
         allowNull: false,

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'MenuCategory',
-      timestamps : false,
+      timestamps: false,
     }
   );
   return MenuCategory;

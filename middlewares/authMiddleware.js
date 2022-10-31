@@ -116,11 +116,9 @@ module.exports = async (req, res, next) => {
         //   accessToken: `Bearer ${newAccessToken}`,
         // });
         console.log("accessToken 재발급");
-
         next()
       }
     }
-
   } catch (error) {
     next(error);
   }

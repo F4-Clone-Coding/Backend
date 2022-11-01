@@ -1,4 +1,4 @@
-const data = require('./menuData.js');
+const data = require('./menuData');
 const { MenuCategory, Category, Store, Menu } = require('./db/models');
 
 let newData = data.map((v) => {
@@ -56,6 +56,11 @@ newData.forEach((v, i) => {
   v.menuList = v.menuList.replaceAll("'", '');
   v.menuList = v.menuList.slice(1, v.menuList.length - 1).split(', ');
   v.price = v.price.slice(1, v.price.length - 1).split(', ');
+  if (v.name.includes('인생죽')) {
+    v.name = v.name.replaceAll(' ', '').replaceAll('(', '').replaceAll(')', '');
+    // console.log(v.name);
+  }
+
   // if (v.openHrInfo.length > 0) v.openHrInfo = v.openHrInfo.split(' ');
 });
 
@@ -66,8 +71,10 @@ let menuPrice = [];
 newData.map((v, j) => {
   for (i = 0; i < v['price'].length; i++) {
     let menu = [];
+
     menu[0] = [v.name, v.menuList[i]];
-    menu[1] = v.price[i];
+    menu[1] = v['price'][i].length > 6 ? 100000 : +v['price'][i];
+    // v.price[] = v[1].length > 6 ? 100000 : +v[1];
     menu[2] = j + 1;
     menuPrice.push(menu);
   }
@@ -134,34 +141,24 @@ menuPrice.map((v, i) => {
   else newList.push(1);
 });
 
-// name;
-// storeIdfdf;
-// MenuCategoryId;
-// price;
-
 const asdf = menuPrice.map((v, i) => {
   return {
-    name: v[0][1],
     storeId: v[2],
-    price: v[1],
     menuCategoryId: newList[i],
+    name: v[0][1].length > 40 ? '인생죽' : v[0][1],
+    price: v[1],
   };
 });
 
-// for (i = 0; i < asdf.length; i++) {
-//   try {
-//     Menu.create(i);
-//   } catch (error) {
-//     console.log(error);
-//     i++;
-//   } finally {
-//     continue;
-//   }
-// }
-for (i of asdf) {
-  if (i.name && i.storeId && i.price && i.menuCategoryId) {
-    (async () => {
-      await Menu.create(i);
-    })();
-  } else continue;
-}
+asdf.forEach((v, i) => {
+  if (v.name && v.price && v.menuCategoryId) {
+    // Menu.create(v);
+    console.log(v);
+  }
+});
+// (async () => {
+//   await createCategories();
+//   console.log('CATEGORIES CREATED');
+//   await createStores();
+//   console.log('STORES CREATED');
+// })();

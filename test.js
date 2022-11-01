@@ -1,4 +1,4 @@
-const data = require('./menuData.js');
+const data = require('./data.json');
 const { Category, Store, Menu } = require('./db/models');
 
 let newData = data.map((v) => {
@@ -9,7 +9,10 @@ let newData = data.map((v) => {
     // price: v['MENU_AMT'],
     location: `${v['LAT']}, ${v['LOT']}`,
     storePhone: v['TELNO'],
-    openHrInfo: v['OPEN_HR_INFO'] === '' ? '매일 17:00~24:00 일요일휴무' : v['OPEN_HR_INFO'],
+    openHrInfo:
+      v['OPEN_HR_INFO'] === ''
+        ? '매일 17:00~24:00 일요일휴무'
+        : v['OPEN_HR_INFO'],
   };
 });
 
@@ -69,7 +72,10 @@ for (i = 0; i < newData.length; i++) {
       categoryId: newData[i].categoryId,
       storePhone: newData[i].storePhone,
       location: newData[i].location,
-      openHrInfo: newData[i].openHrInfo.length > 100 ? '매일 17:00~24:00 일요일휴무' : newData[i].openHrInfo,
+      openHrInfo:
+        newData[i].openHrInfo.length > 100
+          ? '매일 17:00~24:00 일요일휴무'
+          : newData[i].openHrInfo,
     });
   } catch (error) {
     console.log(error);

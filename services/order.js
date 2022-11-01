@@ -14,7 +14,6 @@ class OrderService {
     const foundOrder = await OrderRepo.findOneOrder(orderId);
 
     const { records } = foundOrder;
-    console.log(records)
     const { totalPrice } = records[records.length -1]
     const sum = totalPrice
 
@@ -48,8 +47,6 @@ class OrderService {
       menuList,
       sum,
     };
-    console.log('orderService findOneOrder',data);
-
     return data;
   };
 
@@ -77,9 +74,6 @@ class OrderService {
     const records = order.menus;
     const sum = order.sum;
     records.push({'totalPrice': sum});
-    //console.log(order) 
-    //console.log('records:',records)
-    //console.log('sum:',sum)
     const createOrderData = await OrderRepo.createOrder(
       userId,
       storeId,

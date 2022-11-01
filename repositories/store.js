@@ -15,10 +15,6 @@ class StoreRepositories {
       include: { model: Menu },
     });
   };
-  //초기화하기
-  resetview = async () => {
-    await Store.update({ viewRecent: 0 }, { where: {} });
-  };
 }
 
 module.exports = new StoreRepositories();

@@ -5,7 +5,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class MenuCategory extends Model {
     static associate(models) {
-      this.hasOne(models.Menu, {
+      this.hasMany(models.Menu, {
         foreignKey: 'menuCategoryId',
       });
     }

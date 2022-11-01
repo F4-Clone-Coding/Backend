@@ -10,7 +10,7 @@ const { sessionInfo } = require('./utils/session');
 const sequelize = require('./db/config/connection');
 const indexRouter = require('./routes/index');
 const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
-
+const { resetview } = require('./services/store');
 const app = express();
 const PORT = env.PORT || 3333;
 const DOMAIN = env.DOMAIN;
@@ -24,7 +24,6 @@ app.use(session(sessionInfo));
 
 app.use('/', indexRouter);
 app.use(errorLogger, errorHandler);
-
 app.use(errorLogger);
 app.use(errorHandler);
 
@@ -52,6 +51,7 @@ if (env.MODE == 'development') {
     console.log(error);
     console.log('HTTPS 서버가 실행되지 않습니다.');
     app.listen(PORT, () => {
+      setInterval(resetview, 1000 * 60 * 60);
       console.log('HTTP 서버가 실행되었습니다. 포트 :: ' + PORT);
     });
   }

@@ -7,14 +7,16 @@ const router = Router();
 
 router.get('/all', User.findAll);
 
-router.get('/', authMiddleware, User.findOne);
+router.get('/mypage', authMiddleware, User.findOneforMyPage);
 
 
 router.post('/signup', User.signup);
 
 router.post('/dup', User.dupCheck);
 
-router.patch('/profile/nickname', authMiddleware, User.nicknameUpdate);
+router.patch('/nickname', authMiddleware, User.nicknameUpdate);
+
+router.patch('/password', authMiddleware, User.passwordUpdate);
 
 router.delete('/:userId', User.deleteUser);
 

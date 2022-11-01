@@ -53,6 +53,20 @@ class OrderRepository {
     return foundOrder
   }
 
+  findOrderByUserId = async (userId) =>{
+    const foundOrderList = await Order.findAll({
+      where : {userId},
+      order: [['createdAt', 'DESC']],
+      attributes : ['orderId', 'records', 'createdAt'],
+      include : [{
+        model : Store,
+        key: 'storeId',
+        attributes: ['storeId', 'name', 'contact' ]
+      }] 
+    })
+    return foundOrderList
+  }
+
 }
 
 module.exports = new OrderRepository();

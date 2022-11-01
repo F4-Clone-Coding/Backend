@@ -72,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.SMALLINT.UNSIGNED,
         defaultValue: 0
-      },      
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.STRING,

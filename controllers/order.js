@@ -42,27 +42,8 @@ class OrderController {
   createOrder = async (req, res, next) => {
     try {
       const { userId } = req.app.locals.user;
-      //const { order } = req.body.order;
+      const { order } = req.body;
       const { storeId } = req.params;
-
-      let order = [
-        {
-          menuId: 1,
-          count: 3,
-          price: 18000,
-        },
-        {
-          menuId: 2,
-          count: 2,
-          price: 7000,
-        },
-        {
-          menuId: 3,
-          count: 2,
-          price: 7000,
-        },
-        { sum: 82000 },
-      ];
 
       const createOrderData = await OrderService.createOrder(
         userId,

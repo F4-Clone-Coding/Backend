@@ -1,4 +1,5 @@
 const { Order, Store, Menu } = require("../db/models");
+const { Op } = require('sequelize')
 
 class OrderRepository {
       /**
@@ -52,6 +53,32 @@ class OrderRepository {
     const foundOrder = await Order.findByPk(orderId)
     return foundOrder
   }
+
+  orderTotalCount = async function(storeId) {    
+    return await Order.count({
+      where: { storeId }
+    })
+  }
+
+  // orderRecentCount = async function(storeId) {
+  //   return await Order.count({
+  //     where: { 
+  //       storeId,
+  //       createdAt: {
+  //         [Op.gt]: 
+  //       }
+  //     },
+  //   })
+  // }
+
+  // findOrderByStore = async function(storeId) {
+  //   return await Order.findOne({
+  //     where: { storeId },
+  //     include: {
+  //       model: Store,
+  //     }
+  //   });
+  // }
 
 }
 

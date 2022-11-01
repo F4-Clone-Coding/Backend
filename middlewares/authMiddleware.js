@@ -3,7 +3,6 @@ const UserRepo = require("../repositories/user");
 const env = require("../config.env");
 // const { findUserByToken } = require('../db/cache');
 const { InvalidAccessError } = require("../utils/exception");
-const cookieConfig = require("../utils/cookieConfig");
 const { redisClient } = require("../utils/session");
 const redisCli = redisClient.v4
 
@@ -110,7 +109,11 @@ module.exports = async (req, res, next) => {
         req.app.locals.user = user;
 
         /**새로 발급받은 토큰전송 */
-        res.cookie("accessToken", newAccessToken, cookieConfig);
+        res.cookie("accessToken", newAccessToken, {
+          secure: true,
+          sameSite: 'None',
+          httpOnly: true,
+        });
         // res.json({
         //   message: "acessToken 재발급",
         //   accessToken: `Bearer ${newAccessToken}`,

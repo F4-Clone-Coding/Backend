@@ -19,6 +19,16 @@ const DOMAIN = env.DOMAIN;
 // middlewares
 app.use(logger('dev'));
 
+app.use(function(req, res, next) {
+    res.set({
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': req.headers.origin,
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+    });
+    next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(session(sessionInfo))
@@ -47,6 +57,7 @@ if (env.MODE == 'development') {
             try {
                 await sequelize.authenticate();
                 console.log('DB CONNECTED');
+
             }
             catch (error) {
                 console.error(error);

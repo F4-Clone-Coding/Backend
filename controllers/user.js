@@ -5,7 +5,6 @@ const jwt = require('../utils/jwt');
 // const { addUserToken, removeUserToken } = require('../db/cache');
 const { signupSchema, signinSchema } = require('../utils/validation');
 const { InvalidParamsError } = require('../utils/exception');
-const cookieConfig = require('../utils/cookieConfig');
 const { redisClient } = require("../utils/session");
 const redisCli = redisClient.v4
 const dotenv = require("dotenv");
@@ -104,14 +103,14 @@ class UserController {
             const refreshToken = jwt.refresh();
             await redisCli.set(refreshToken, payload.userId); //key refreshToken value userId
             await redisCli.set(`user${payload.userId}`, location);
-            // await addUserToken(refreshToken, payload.userId);
 
-            res.cookie('accessToken', accessToken, cookieConfig);
-            res.cookie('resfreshToken', refreshToken, cookieConfig);
+            // res.cookie('accessToken', accessToken, cookieConfig);
+            // res.cookie('resfreshToken', refreshToken, cookieConfig);
+            // res.set('Set-Cookie', `accessToken=${accessToken}; refreshToken=${refreshToken}; httpOnly=true; Secure=true; SameSite=true`)
+            // res.set('Set-Cookie', `accessToken=${accessToken}; httpOnly; Secure; SameSite=None;`)
             res.status(200).json({
-                message: '로그인되었습니다.',
-                accessToken: `Bearer ${accessToken}`,
-                refreshToken: `Bearer ${refreshToken}`
+                message: true,
+                accessToken, refreshToken
             });
 
         } catch (error) {
@@ -137,8 +136,8 @@ class UserController {
             const refreshToken = jwt.refresh();
             // await addUserToken(refreshToken, payload.userId);
             
-            res.cookie('accessToken', accessToken, cookieConfig);
-            res.cookie('resfreshToken', refreshToken, cookieConfig);
+            // res.cookie('accessToken', accessToken, cookieConfig);
+            // res.cookie('resfreshToken', refreshToken, cookieConfig);
             res.status(200).json({
                 accessToken, refreshToken
             });

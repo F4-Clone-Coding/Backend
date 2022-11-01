@@ -9,12 +9,11 @@ router.get('/all', User.findAll);
 
 router.get('/', authMiddleware, User.findOne);
 
-
 router.post('/signup', User.signup);
 
 router.post('/dup', User.dupCheck);
 
-router.patch('/profile/nickname', authMiddleware, User.nicknameUpdate);
+router.patch('/nickname', authMiddleware, User.nicknameUpdate);
 
 router.delete('/:userId', User.deleteUser);
 

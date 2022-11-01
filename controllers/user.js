@@ -102,9 +102,12 @@ class UserController {
 
             const accessToken = jwt.sign(payload);
             const refreshToken = jwt.refresh();
-            await redisCli.set(refreshToken, payload.userId); //key refreshToken value userId
-            await redisCli.set(`user${payload.userId}`, location);
-            // await addUserToken(refreshToken, payload.userId);
+
+            await Promise.all([
+                redisCli.set(refreshToken, payload.userId, {EX: 3600, NX: true}),
+                redisCli.set(`user${payload.userId}`, location, {EX:3600})            
+            ]);
+            //key refreshToken, value userId, EX설정 ttl 3600초, NX설정시 같은키 덮어쓰기 안됨
 
             res.cookie('accessToken', accessToken, cookieConfig);
             res.cookie('resfreshToken', refreshToken, cookieConfig);
@@ -148,7 +151,10 @@ class UserController {
     signout = async function(req, res, next) {
         const { refreshToken } = req.params
         const n = await redisCli.exists(refreshToken); // true: 1 , false: 0
-        if(n) await redisCli.del(refreshToken);
+        if(n) await Promise.all([
+            redisCli.del(refreshToken),
+            redisCli.quit()
+        ]); 
 
         req.session.destroy();
         // await removeUserToken(refreshToken)

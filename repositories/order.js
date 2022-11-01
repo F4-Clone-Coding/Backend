@@ -17,7 +17,7 @@ class OrderRepository {
       include : [{
         model : Store,
         key: 'storeId',
-        attributes: ['storeId', 'name', 'storePhone' ]
+        attributes: ['storeId', 'name', 'contact' ]
       }]  
     });
     return foundOneOrder;

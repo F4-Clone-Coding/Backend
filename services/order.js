@@ -44,7 +44,7 @@ class OrderService {
       orderDate: foundOrder.createdAt,
       storeId: foundOrder.Store.storeId,
       storeName: foundOrder.Store.name,
-      storePhone: foundOrder.Store.storePhone,
+      storePhone: foundOrder.Store.contact,
       menuList,
     };
     console.log('orderService findOneOrder',data);

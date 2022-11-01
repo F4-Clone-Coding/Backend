@@ -1,4 +1,3 @@
-const category = require("../repositories/category");
 const { CategoryService } = require("../services");
 
 

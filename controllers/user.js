@@ -149,12 +149,12 @@ class UserController {
       ]);
       //key refreshToken, value userId, EX설정 ttl 3600초, NX설정시 같은키 덮어쓰기 안됨
 
-      res.cookie("accessToken", accessToken, cookieConfig);
-      res.cookie("resfreshToken", refreshToken, cookieConfig);
+      // res.cookie("accessToken", accessToken, cookieConfig);
+      // res.cookie("resfreshToken", refreshToken, cookieConfig);
       res.status(200).json({
         message: "로그인되었습니다.",
-        accessToken: `Bearer ${accessToken}`,
-        refreshToken: `Bearer ${refreshToken}`,
+        accessToken,
+        refreshToken,
       });
     } catch (error) {
       next(error);
@@ -178,8 +178,8 @@ class UserController {
       const refreshToken = jwt.refresh();
       // await addUserToken(refreshToken, payload.userId);
 
-      res.cookie("accessToken", accessToken, cookieConfig);
-      res.cookie("resfreshToken", refreshToken, cookieConfig);
+      // res.cookie("accessToken", accessToken, cookieConfig);
+      // res.cookie("resfreshToken", refreshToken, cookieConfig);
       res.status(200).json({
         accessToken,
         refreshToken,

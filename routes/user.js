@@ -7,7 +7,7 @@ const router = Router();
 
 router.get('/all', User.findAll);
 
-router.get('/', authMiddleware, User.findOneforMyPage);
+router.get('/', authMiddleware, User.findOne);
 
 router.post('/signup', User.signup);
 

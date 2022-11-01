@@ -17,7 +17,7 @@ class OrderRepository {
       include : [{
         model : Store,
         key: 'storeId',
-        attributes: ['storeId', 'name', 'storePhone' ]
+        attributes: ['storeId', 'name', 'contact' ]
       }]  
     });
     return foundOneOrder;
@@ -51,6 +51,20 @@ class OrderRepository {
   findOrderById = async (orderId) => {
     const foundOrder = await Order.findByPk(orderId)
     return foundOrder
+  }
+
+  findOrderByUserId = async (userId) =>{
+    const foundOrderList = await Order.findAll({
+      where : {userId},
+      order: [['createdAt', 'DESC']],
+      attributes : ['orderId', 'records', 'createdAt'],
+      include : [{
+        model : Store,
+        key: 'storeId',
+        attributes: ['storeId', 'name', 'contact' ]
+      }] 
+    })
+    return foundOrderList
   }
 
 }

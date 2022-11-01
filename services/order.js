@@ -14,11 +14,12 @@ class OrderService {
     const foundOrder = await OrderRepo.findOneOrder(orderId);
 
     const { records } = foundOrder;
-    const parsedRecords = JSON.parse(records);
+    const { totalPrice } = records[records.length -1]
+    const sum = totalPrice
 
     const menuList = [];
 
-    const promises = parsedRecords.map(async(record) => {
+    const promises = records.map(async(record) => {
       let menuId = record.menuId;
       let count = record.count;
 
@@ -35,8 +36,6 @@ class OrderService {
       }
     });
 
-    console.log(promises)
-
     await Promise.all(promises);
 
     const data = {
@@ -44,11 +43,10 @@ class OrderService {
       orderDate: foundOrder.createdAt,
       storeId: foundOrder.Store.storeId,
       storeName: foundOrder.Store.name,
-      storePhone: foundOrder.Store.storePhone,
+      storePhone: foundOrder.Store.contact,
       menuList,
+      sum,
     };
-    console.log('orderService findOneOrder',data);
-
     return data;
   };
 
@@ -72,8 +70,10 @@ class OrderService {
    * @returns
    */
   createOrder = async (userId, storeId, order) => {
-    const records = JSON.stringify(order);
-
+    //const ordered = JSON.stringify(order);
+    const records = order.menus;
+    const sum = order.sum;
+    records.push({'totalPrice': sum});
     const createOrderData = await OrderRepo.createOrder(
       userId,
       storeId,

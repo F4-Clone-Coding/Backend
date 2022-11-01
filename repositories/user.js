@@ -41,6 +41,12 @@ class UserRepository extends User {
         });
     }
 
+    updatePassword = async function({ userId, newPassword  }){
+        return await User.update({ password:newPassword },{
+            where: {userId}
+        } )
+    }
+
     deleteOne = async function() {}    
 }
 

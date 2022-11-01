@@ -30,5 +30,7 @@ module.exports = {
         .messages({
             "string.pattern.base": "비밀번호 형식이 맞지 않습니다."
         }),
+        location: Joi.string().required()
+        .error(new Error("JOI LOCATION")),
     }),
 }

@@ -9,7 +9,7 @@ class StoreController {
       const reviews = await ReviewService.findReview(storeId);
 
       await StoreService.updateScore(storeId);
-      res.status(200).send({ data : findStore }, {reviews});
+      res.status(200).send({ data : findStore, reviews : reviews});
     } catch (error) {
       console.log(error);
       res.status(400).send({ msg: '매장 상세 보기 에러' });

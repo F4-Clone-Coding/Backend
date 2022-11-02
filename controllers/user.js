@@ -143,7 +143,7 @@ class UserController {
     console.log("MY PAGE");
     try {
       const userInfo = req.app.locals.user;
-      if(userInfo.userId) throw new InvalidParamsError("사용자 정보가 없습니다.");
+      if(!userInfo.userId) throw new InvalidParamsError("사용자 정보가 없습니다.");
 
       const orderList = await UserService.findOneforMyPage(userInfo.userId);
 

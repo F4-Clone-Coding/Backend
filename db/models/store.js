@@ -83,8 +83,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.INTEGER,
-        defaultValue: Date.now(),
+        type: DataTypes.STRING,
+        defaultValue: new Date().toLocaleDateString(),
       },
     },
     {

@@ -28,8 +28,8 @@ module.exports = {
         defaultValue: 'local'
       },
       createdAt: {
-        type: Sequelize.INTEGER,
-        defaultValue: Date.now(),
+        type: Sequelize.STRING,
+        defaultValue: new Date().toLocaleDateString(),
       }
     });
   },

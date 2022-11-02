@@ -64,8 +64,8 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        defaultValue: Date.now(),
+        type: Sequelize.STRING,
+        defaultValue: new Date().toLocaleDateString(),
       },
     });
   },

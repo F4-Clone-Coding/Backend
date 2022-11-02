@@ -2,7 +2,6 @@ const { OrderRepo, UserRepo } = require("../repositories");
 const bcrypt = require("bcrypt");
 const env = require("../config.env");
 const { InvalidParamsError } = require("../utils/exception");
-const { get } = require("request");
 
 class UserService {
   signup = async function (user) {
@@ -89,19 +88,10 @@ class UserService {
   };
 
   findOneforMyPage = async function (userId) {
-    const result = await UserRepo.findOne(userId);
     const orders = await OrderRepo.findOrderByUserId(userId);
     let orderList = [];
     for (const order of orders) {
-      const orderInfo = {
-        orerId: order.orderId,
-        orderDate: order.createdAt,
-        storeId: order.Store.storeId,
-        storeName: order.Store.name,
-        storePhone: order.Store.contact,
-      };
-      orderList.push(orderInfo);
-
+      let menuList = [];
       const { records } = order;
       const { totalPrice } = records[records.length - 1];
 
@@ -118,18 +108,24 @@ class UserService {
             count,
             image: menu.image,
           };
-          orderList.push(Menu);
+          menuList.push(Menu);
         }
       });
       await Promise.all(promises);
-      orderList.push({sum:totalPrice});
+      menuList.push({ sum: totalPrice });
+
+      const orderInfo = {
+        orderId: order.orderId,
+        createdAt: order.createdAt,
+        storeId: order.Store.storeId,
+        name: order.Store.name,
+        contact: order.Store.contact,
+        menuList,
+      };
+
+      orderList.push(orderInfo);
     }
-    return {
-      userId: result.userId,
-      email: result.email,
-      nickname: result.nickname,
-      orderList,
-    };
+    return orderList;
   };
 }
 

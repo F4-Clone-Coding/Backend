@@ -121,11 +121,11 @@ class UserController {
   findOneforMyPage = async function (req, res, next) {
     console.log("MY PAGE");
     try {
-      const { userId } = req.app.locals.user;
-      const user = await UserService.findOneforMyPage(userId);
+      const user = req.app.locals.user;
+      const orderList = await UserService.findOneforMyPage(user.userId);
 
       res.status(200).json({
-        data: user,
+        user, orderList
       });
     } catch (error) {
       next(error);

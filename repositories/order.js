@@ -43,19 +43,16 @@ class OrderRepository {
    * @returns 
    */
   createOrder = async ( userId, storeId, records ) => {
-    console.log(userId, storeId, records)
-    const createOrderData = await Order.create({ userId, storeId, records });
-    return createOrderData;
+    return await Order.create({ userId, storeId, records });
   };
 
   //주문 한개 내역 조회 // 사용하지 않고 있습니다.
   findOrderById = async (orderId) => {
-    const foundOrder = await Order.findByPk(orderId)
-    return foundOrder
+    return await Order.findByPk(orderId)
   }
 
   findOrderByUserId = async (userId) =>{
-    const foundOrderList = await Order.findAll({
+    return await Order.findAll({
       where : {userId},
       order: [['createdAt', 'DESC']],
       attributes : ['orderId', 'records', 'createdAt'],
@@ -65,7 +62,6 @@ class OrderRepository {
         attributes: ['storeId', 'name', 'contact' ]
       }] 
     })
-    return foundOrderList
   }
 
   orderTotalCount = async function(storeId) {    
@@ -74,16 +70,18 @@ class OrderRepository {
     })
   }
 
-  // orderRecentCount = async function(storeId) {
-  //   return await Order.count({
-  //     where: { 
-  //       storeId,
-  //       createdAt: {
-  //         [Op.gt]: 
-  //       }
-  //     },
-  //   })
-  // }
+  orderRecentCount = async function(storeId) {
+    const lastSevenDays = date.lastSevenDays();
+    return await Order.count({
+      where: {
+        storeId,
+        createdAt: {
+          [Op.gt]: lastSevenDays
+        }
+      },
+    })
+  }
+
 
   // findOrderByStore = async function(storeId) {
   //   return await Order.findOne({

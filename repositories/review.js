@@ -11,7 +11,7 @@ class ReviewRepository extends Review {
   };
 
   findReview = async function (storeId) {
-    return await Review.findAll({ where: { storeId } });
+    return await Review.findOne({ where: { storeId } });
   };
 
   deleteReview = async function (userId, reviewId) {

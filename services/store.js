@@ -1,14 +1,16 @@
-const { StoreRepo } = require('../repositories');
+const { StoreRepo, LikeRepo } = require('../repositories');
 const { scoreBase } = require('../utils/listing/score');
 
 class StoreServices {
   //매장 상세 페이지 조회
-  DetailStore = async (storeId) => {
+  DetailStore = async (storeId, userId) => {
     //조회수
     await StoreRepo.views(storeId);
     //상세 조회
-    const find = await StoreRepo.DetailStore(storeId);
-    return find;
+    const store = await StoreRepo.DetailStore(storeId);
+    const like = await LikeRepo.findOne(storeId, userId);
+
+    return Object.assign(store.get(), { like: Boolean(like) });
   };
 
   resetview = async () => {

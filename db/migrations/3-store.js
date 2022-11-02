@@ -41,11 +41,11 @@ module.exports = {
       },
       X: {
         allowNull: true,
-        type: Sequelize.STRING(40),
+        type: Sequelize.INTEGER,
       },
       Y: {
         allowNull: true,
-        type: Sequelize.STRING(40),
+        type: Sequelize.INTEGER,
       },
       viewTotal : {
         allowNull: false,

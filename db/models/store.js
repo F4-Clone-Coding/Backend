@@ -60,11 +60,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       X: {
         allowNull: false,
-        type: DataTypes.STRING(40),
+        type: DataTypes.INTEGER,
       },
       Y: {
         allowNull: false,
-        type: DataTypes.STRING(40),
+        type: DataTypes.INTEGER,
       },
       viewTotal: {
         allowNull: false,

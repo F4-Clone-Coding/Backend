@@ -1,5 +1,6 @@
 const { Order, Store, Menu } = require("../db/models");
 const { Op } = require('sequelize')
+const date = require('../utils/listing/date');
 
 class OrderRepository {
       /**
@@ -64,7 +65,7 @@ class OrderRepository {
     })
   }
 
-  orderTotalCount = async function(storeId) {    
+  orderTotalCount = async function(storeId) {
     return await Order.count({
       where: { storeId }
     })
@@ -73,7 +74,7 @@ class OrderRepository {
   orderRecentCount = async function(storeId) {
     const lastSevenDays = date.lastSevenDays();
     return await Order.count({
-      where: {
+      where: { 
         storeId,
         createdAt: {
           [Op.gt]: lastSevenDays
@@ -81,7 +82,6 @@ class OrderRepository {
       },
     })
   }
-
 
   // findOrderByStore = async function(storeId) {
   //   return await Order.findOne({

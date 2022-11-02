@@ -9,8 +9,9 @@ class OrderController {
       const { orderId } = req.params;
       if(!orderId) throw new InvalidParamsError('입력값이 없습니다.')
 
-      const foundOrder = await OrderService.findOne(orderId);
-      res.json({ data: foundOrder });
+      const order = await OrderService.findOne(orderId);
+      res.json({ order });
+
     } catch (error) {
       next(error);
     }
@@ -20,8 +21,9 @@ class OrderController {
   findOrderRecordsById = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      const foundOrder = await OrderService.findOrderRecordsById(orderId);
-      res.json({ data: foundOrder });
+      const order = await OrderService.findOrderRecordsById(orderId);
+
+      res.json({ order });
     } catch (error) {
       next(error);
     }
@@ -50,7 +52,7 @@ class OrderController {
 
       const { orderId } = createOrderData;
 
-      res.json({ data: orderId });
+      res.json({ orderId });
     } catch (error) {
       next(error);
     }

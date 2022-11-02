@@ -2,7 +2,6 @@ const { OrderRepo, MenuRepo } = require("../repositories");
 const { InvalidParamsError } = require("../utils/exception");
 
 class OrderService {
-
   //GET order/:orderId
   findOne = async (orderId) => {
     const order = await OrderRepo.findOneOrder(orderId);
@@ -34,45 +33,19 @@ class OrderService {
 
  //주문내역조회 사용하지 않고 있습니다. 
   findOneOrder = async (orderId) => {
-    const foundOrder = await OrderRepo.findOneOrder(orderId);
-    const { records } = foundOrder;
-    const { totalPrice } = records[records.length - 1];
 
-    if (!foundOrder || !records || !totalPrice || !records[0].menuId)
-      throw new InvalidParamsError("주문한 내역이 없습니다.");
-
-    const sum = totalPrice;
-    const menuList = [];
-
-    const promises = records.map(async (record) => {
-      let menuId = record.menuId;
-      let count = record.count;
-
-      if (menuId && count) {
-        let menu = await OrderRepo.findOneMenu(menuId);
-        let Menu = {
-          menuId: menu.menuId,
-          name: menu.name,
-          price: menu.price,
-          count,
-          image: menu.image,
-        };
-        return menuList.push(Menu);
-      }
-    });
-
-    await Promise.all(promises);
-
-    const data = {
-      orderId: foundOrder.orderId,
-      orderDate: foundOrder.createdAt,
-      storeId: foundOrder.Store.storeId,
-      storeName: foundOrder.Store.name,
-      storePhone: foundOrder.Store.contact,
-      menuList,
-      sum,
-    };
-    return data;
+  createOrder = async (userId, storeId, order) => {
+    // const ordered = JSON.stringify(order);
+    const records = order.menus;
+    const sum = order.sum;
+    records.push({'totalPrice': sum});
+    const createOrderData = await OrderRepo.createOrder(
+      userId,
+      storeId,
+      records
+    );
+    console.log(createOrderData.get());
+    return createOrderData;
   };
 
   //주문 한개 내역 조회 //사용하지 않고 있습니다.

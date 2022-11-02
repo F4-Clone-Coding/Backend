@@ -5,9 +5,9 @@ const jwt = require("../utils/jwt");
 const { signupSchema, signinSchema } = require("../utils/validation");
 const { InvalidParamsError } = require("../utils/exception");
 const { redisClient } = require("../utils/session");
+
 const redisCli = redisClient.v4;
-const dotenv = require("dotenv");
-dotenv.config();
+
 
 class UserController {
   signup = async function (req, res, next) {

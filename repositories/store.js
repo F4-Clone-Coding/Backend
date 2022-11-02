@@ -1,6 +1,6 @@
 const { Store, Menu } = require('../db/models');
 
-class StoreRepositories {
+class StoreRepository {
   //조회수
   views = async (storeId) => {
     await Store.increment({ viewTotal: 1 }, { where: { storeId } });
@@ -15,10 +15,6 @@ class StoreRepositories {
       include: { model: Menu },
     });
   };
-  //초기화하기
-  resetview = async () => {
-    await Store.update({ viewRecent: 0 }, { where: {} });
-  };
 }
 
-module.exports = new StoreRepositories();
+module.exports = new StoreRepository();

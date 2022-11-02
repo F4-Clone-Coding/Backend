@@ -9,13 +9,6 @@ class StoreServices {
     const find = await StoreRepo.DetailStore(storeId);
     return find;
   };
-
-  resetview = async () => {
-    //월요일 1
-    if (new Date().getDay() == 1 && new Date().getHours() == 0) {
-      await StoreRepo.resetview();
-    }
-  };
 }
 
 module.exports = new StoreServices();

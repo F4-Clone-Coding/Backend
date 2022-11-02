@@ -5,12 +5,13 @@ const logger = require('morgan');
 const fs = require('fs');
 const HTTPS = require('https');
 
+const { resetview } = require('./utils/resetview');
 const env = require('./config.env');
 const { sessionInfo } = require('./utils/session');
 const sequelize = require('./db/config/connection');
 const indexRouter = require('./routes/index');
 const { errorLogger, errorHandler } = require('./middlewares/errorHandler');
-const { resetview } = require('./services/store');
+
 const app = express();
 const PORT = env.PORT || 3333;
 const DOMAIN = env.DOMAIN;
@@ -18,14 +19,17 @@ const DOMAIN = env.DOMAIN;
 // middlewares
 app.use(logger('dev'));
 
-app.use(function(req, res, next) {
-    res.set({
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': req.headers.origin,
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
-    });
-    next();
+resetview();
+
+app.use(function (req, res, next) {
+  res.set({
+    'Access-Control-Allow-Credentials': true,
+    'Access-Control-Allow-Origin': req.headers.origin,
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
+    'Access-Control-Allow-Headers':
+      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
+  });
+  next();
 });
 
 app.use(express.json());
@@ -50,21 +54,18 @@ if (env.MODE == 'development') {
       console.log(env);
 
       try {
-          await sequelize.authenticate();
-          console.log('DB CONNECTED');
-
-      }
-      catch (error) {
-          console.error(error);
-          console.log('DB CONNECTION FAILED');
+        await sequelize.authenticate();
+        console.log('DB CONNECTED');
+      } catch (error) {
+        console.error(error);
+        console.log('DB CONNECTION FAILED');
       }
     });
   } catch (error) {
-      console.log(error);
-      console.log('HTTPS 서버가 실행되지 않습니다.');
-      app.listen(PORT, ()=>{
-        setInterval(resetview, 1000 * 60 * 60);
-          console.log('HTTP 서버가 실행되었습니다. 포트 :: ' + PORT);
-      });
+    console.log(error);
+    console.log('HTTPS 서버가 실행되지 않습니다.');
+    app.listen(PORT, () => {
+      console.log('HTTP 서버가 실행되었습니다. 포트 :: ' + PORT);
+    });
   }
 }

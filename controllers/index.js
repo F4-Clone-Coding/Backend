@@ -5,4 +5,10 @@ const UserController = require('./user');
 const ReviewController = require('./review')
 
 
-module.exports = { CategoryController, OrderController, StoreController, UserController, ReviewController };
+module.exports = { 
+    CategoryController, 
+    OrderController, 
+    StoreController, 
+    UserController, 
+    ReviewController 
+};

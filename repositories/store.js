@@ -1,6 +1,6 @@
 const { Store, Menu } = require('../db/models');
 
-class StoreRepositories {
+class StoreRepository {
   //조회수
   views = async (storeId) => {
     await Store.increment({ viewTotal: 1 }, { where: { storeId } });
@@ -17,4 +17,4 @@ class StoreRepositories {
   };
 }
 
-module.exports = new StoreRepositories();
+module.exports = new StoreRepository();

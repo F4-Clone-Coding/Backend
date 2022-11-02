@@ -11,8 +11,9 @@ class OrderController {
   findOneOrder = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      const foundOrder = await OrderService.findOneOrder(orderId);
-      res.json({ data: foundOrder });
+      const order = await OrderService.findOne(orderId);
+
+      res.json({ order });
     } catch (error) {
       console.trace(error);
       return res.status(400).json("임시로 쓴 에러");
@@ -23,8 +24,9 @@ class OrderController {
   findOrderRecordsById = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      const foundOrder = await OrderService.findOrderRecordsById(orderId);
-      res.json({ data: foundOrder });
+      const order = await OrderService.findOrderRecordsById(orderId);
+
+      res.json({ order });
     } catch (error) {
       console.trace(error);
       return res.status(400).json("임시로 쓴 에러");
@@ -52,7 +54,7 @@ class OrderController {
 
       const { orderId } = createOrderData;
 
-      res.json({ data: orderId });
+      res.json({ orderId });
     } catch (error) {
       //next(error);
       console.trace(error);

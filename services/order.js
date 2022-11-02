@@ -8,7 +8,7 @@ class OrderService {
     const records = order.get().records;
 
     const menus = [];
-    for (let i=0; i<2; i++) {
+    for (let i=0; i<records.length-1; i++) {
       const result = await MenuRepo.findOne(records[i].menuId);
       const menu = {
         ...records[i],
@@ -23,7 +23,7 @@ class OrderService {
       ...order.Store.get(),
       menus,
       menusCount: menus.length,
-      sum: records[2].totalPrice,
+      sum: records[records.length-1].totalPrice,
       createdAt: order.createdAt,
     }
   };

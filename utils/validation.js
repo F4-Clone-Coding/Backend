@@ -7,7 +7,7 @@ module.exports = {
             .messages({
                 "string.pattern.base": "이메일 형식이 맞지 않습니다."
             }),
-        nickname: Joi.string().min(4).max(10).required()
+        nickname: Joi.string().min(3).max(10).required()
         .messages({
             "string.min": "닉네임은 4~10자입니다.",
             "string.max": "닉네임은 4~10자입니다."

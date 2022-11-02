@@ -33,13 +33,9 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER,
+        defaultValue: Date.now()
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-      }
-
     });
   },
   async down(queryInterface, Sequelize) {

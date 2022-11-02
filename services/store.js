@@ -1,4 +1,5 @@
 const { StoreRepo } = require('../repositories');
+const { scoreBase } = require('../utils/listing/score');
 
 class StoreServices {
   //매장 상세 페이지 조회
@@ -16,6 +17,19 @@ class StoreServices {
       await StoreRepo.resetview();
     }
   };
+
+  updateScore = async function(storeId) {
+    const store = await StoreRepo.findStore(storeId);
+    const score = scoreBase(store)
+    const result = await StoreRepo.updateScore(storeId, score);
+
+    switch (result[0]) {
+      case 1:
+          return true;
+      default:
+          return false;
+    }
+  }
 }
 
 module.exports = new StoreServices();

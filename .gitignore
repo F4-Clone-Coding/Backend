@@ -1,6 +1,7 @@
 node_modules
 .env
 data.json
+apvDate.json
 menuData.js
 Untitled-1.js
 ZdevTools

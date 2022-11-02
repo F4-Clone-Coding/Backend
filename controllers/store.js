@@ -6,6 +6,8 @@ class StoreController {
     try {
       const { storeId } = req.params;
       const findStore = await StoreService.DetailStore(storeId);
+      await StoreService.updateScore(storeId);
+      
       res.status(200).send({ data: findStore });
     } catch (error) {
       console.log(error);

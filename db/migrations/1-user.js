@@ -27,8 +27,10 @@ module.exports = {
         type: Sequelize.STRING(40),
         defaultValue: 'local'
       },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE
+      createdAt: {
+        type: Sequelize.INTEGER,
+        defaultValue: Date.now(),
+      }
     });
   },
   

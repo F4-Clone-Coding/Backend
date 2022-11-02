@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const fileupload = require('express-fileupload')
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
@@ -22,14 +23,15 @@ app.use(function(req, res, next) {
     res.set({
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': req.headers.origin,
-        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, authorization, refreshToken, cache-control'
     });
     next();
 });
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileupload());
 app.use(session(sessionInfo));
 
 app.use('/', indexRouter);

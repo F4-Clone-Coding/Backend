@@ -38,11 +38,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(40),
         defaultValue: 'local',
       },
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    createdAt: {
+      type: DataTypes.INTEGER,
+      defaultValue: Date.now(),
+    }
   }, {
     sequelize,
     modelName: 'User',
+    updatedAt: false,
   });
 
   return User;

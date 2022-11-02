@@ -1,4 +1,4 @@
-const { OrderService } = require("../services");
+const { OrderService, StoreService } = require("../services");
 
 class OrderController {
   /**
@@ -51,6 +51,7 @@ class OrderController {
         storeId,
         order
       );
+      await StoreService.updateScore(storeId);
 
       const { orderId } = createOrderData;
 

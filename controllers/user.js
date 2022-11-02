@@ -90,6 +90,27 @@ class UserController {
     }
   };
 
+  profileUpdate = async function(req, res, next) {
+    try {
+        if (!req.files) throw new InvalidParamsError('이미지를 업로드해 주세요.');
+        const { profImg } = req.files;
+        const { userId } = req.app.locals.user;
+
+        if (profImg.mimetype.split('/')[0] !== 'image')
+            throw new InvalidParamsError('이미지를 업로드해 주세요.');
+
+        const imgPath = await ResizeAndSave.profImg(userId, profImg);
+        await User.profileUpdate(userId, imgPath);
+
+        res.status(200).json({
+            message: 'SUCCESS',
+        });
+        
+    } catch (error) {
+        next(error);
+    }
+}
+
   deleteUser = async function () {};
 
   findAll = async function (req, res, next) {
@@ -137,6 +158,7 @@ class UserController {
       const { email, password, location } = await signinSchema.validateAsync(
         req.body
       );
+      const [X, Y] = location?.split(', ').map((n)=>Number(n).toFixed(7)*10**7);
       const payload = await UserService.signin(email, password);
       if (payload instanceof Error) throw payload;
 
@@ -149,8 +171,8 @@ class UserController {
       ]);
       //key refreshToken, value userId, EX설정 ttl 3600초, NX설정시 같은키 덮어쓰기 안됨
 
-      // res.cookie("accessToken", accessToken, cookieConfig);
-      // res.cookie("resfreshToken", refreshToken, cookieConfig);
+      // // res.cookie("accessToken", accessToken, cookieConfig);
+      // // res.cookie("resfreshToken", refreshToken, cookieConfig);
       res.status(200).json({
         message: "로그인되었습니다.",
         accessToken,

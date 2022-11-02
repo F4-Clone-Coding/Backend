@@ -11,9 +11,10 @@ class ReviewController {
 
        if(!storeId || !review) throw InvalidParamsError('입력값이 없습니다.')
 
-        await ReviewService.createReview(userId, storeId, review)
+        const createdReview = await ReviewService.createReview(userId, storeId, review)
+        const { reviewId } = createdReview
         res.status(200).json({
-            result: true,
+            reviewId : reviewId,
             message: "SUCCESS",
           });
 

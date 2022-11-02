@@ -176,7 +176,7 @@ class UserController {
 
       await Promise.all([
         redisCli.set(refreshToken, payload.userId, { EX: 3600, NX: true }),
-        redisCli.set(`user${payload.userId}`, location, { EX: 3600 }),
+        redisCli.set(`user${payload.userId}`, `${X},${Y}`, { EX: 3600 }),
       ]);
       //key refreshToken, value userId, EX설정 ttl 3600초, NX설정시 같은키 덮어쓰기 안됨
 

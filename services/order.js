@@ -31,9 +31,6 @@ class OrderService {
   };
 
 
- //주문내역조회 사용하지 않고 있습니다. 
-  findOneOrder = async (orderId) => {
-
   createOrder = async (userId, storeId, order) => {
     // const ordered = JSON.stringify(order);
     const records = order.menus;
@@ -79,7 +76,7 @@ class OrderService {
     return createOrderData;
   };
 }
-}
+
 
 
 module.exports = new OrderService();

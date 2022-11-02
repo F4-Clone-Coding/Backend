@@ -79,5 +79,7 @@ class OrderService {
     return createOrderData;
   };
 }
+}
+
 
 module.exports = new OrderService();

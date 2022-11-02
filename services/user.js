@@ -2,7 +2,6 @@ const { OrderRepo, UserRepo } = require("../repositories");
 const bcrypt = require("bcrypt");
 const env = require("../config.env");
 const { InvalidParamsError } = require("../utils/exception");
-const { get } = require("request");
 
 class UserService {
   signup = async function (user) {
@@ -89,47 +88,31 @@ class UserService {
   };
 
   findOneforMyPage = async function (userId) {
-    const result = await UserRepo.findOne(userId);
     const orders = await OrderRepo.findOrderByUserId(userId);
+
     let orderList = [];
+
     for (const order of orders) {
-      const orderInfo = {
-        orerId: order.orderId,
-        orderDate: order.createdAt,
-        storeId: order.Store.storeId,
-        storeName: order.Store.name,
-        storePhone: order.Store.contact,
-      };
-      orderList.push(orderInfo);
-
       const { records } = order;
+      const { createdAt } = order;
+      const menuCount = records.length - 1;
+
       const { totalPrice } = records[records.length - 1];
+      const menuId = records[0].menuId;
+      const menu = await OrderRepo.findOneMenu(menuId);
 
-      const promises = records.map(async (record) => {
-        const menuId = record.menuId;
-        const count = record.count;
+      const orderInfo = {
+        storeId: order.Store.storeId,
+        name: order.Store.name,
+        menu: menu.name,
+        menuCount: menuCount,
+        createdAt: createdAt,
+        sum: totalPrice,
+      };
 
-        if (menuId && count) {
-          const menu = await OrderRepo.findOneMenu(menuId);
-          const Menu = {
-            menuId: menu.menuId,
-            name: menu.name,
-            price: menu.price,
-            count,
-            image: menu.image,
-          };
-          orderList.push(Menu);
-        }
-      });
-      await Promise.all(promises);
-      orderList.push({sum:totalPrice});
+      orderList.push(orderInfo);
     }
-    return {
-      userId: result.userId,
-      email: result.email,
-      nickname: result.nickname,
-      orderList,
-    };
+    return orderList;
   };
 }
 

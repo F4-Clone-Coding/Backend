@@ -53,7 +53,7 @@ class OrderRepository {
   }
 
   findOrderByUserId = async (userId) =>{
-    const foundOrderList = await Order.findAll({
+    return await Order.findAll({
       where : {userId},
       order: [['createdAt', 'DESC']],
       attributes : ['orderId', 'records', 'createdAt'],
@@ -63,7 +63,6 @@ class OrderRepository {
         attributes: ['storeId', 'name', 'contact' ]
       }] 
     })
-    return foundOrderList
   }
 
   orderTotalCount = async function(storeId) {

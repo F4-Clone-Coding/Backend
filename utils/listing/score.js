@@ -13,13 +13,14 @@ class Score {
         return (14 / T) * R;
     }
 
-    scoreDistance = function(store, userLocation) {
-        const { location, score } = store;
-        const distance = coordDistance(location, userLocation);
+    scoreDistance = function(store, [userX, userY]) {
+        const { X, Y, score } = store;
+        const distance = coordDistance([X, Y], [userX, userY]);
 
         const log = Math.log10;
-        const D = 30*log(3000-distance) - 10*log(distance+10);
-
+        const D = distance < 3000 ? 30*log(3020-distance) - 10*log(distance+3)
+            : 10 - 4*log(distance - 2952);
+        console.log(distance, D);
         return D * score;
     }
 

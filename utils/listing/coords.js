@@ -32,21 +32,19 @@ class Coords {
     #maxLatitude = 3018390;
     #maxLongitude = 5352250;
 
-    // #latConvertRatio = 30183900 / 27261156;
-    // #lotConvertRatio = 53522500 / 28432450;
-    #latConvertRatio = 3726237450 / 3633277889;
-    #lotConvertRatio = 12646647350 / 12739128735;
+    #latConvertRatio = 375642135 / 363327789;
+    #lotConvertRatio = 1270016985 / 1273912874;
 
     convertCoords = (X, Y) => {
-        return [ (X * this.#latConvertRatio).toFixed(7), (Y * this.#lotConvertRatio).toFixed(7) ]
+        return [ 
+            Number((X * this.#latConvertRatio).toFixed(7)) * 10**7,
+            Number((Y * this.#lotConvertRatio).toFixed(7)) * 10**7 
+        ]
     }
     
-    coordDistance = function(A, B) {
-        const [ latitudeA, longitudeA ] = A.split(', ').map(Number);
-        const [ latitudeB, longitudeB ] = B.split(', ').map(Number);
-
-        const latitudeDifference = Math.abs(latitudeA - latitudeB);
-        const longitudeDifference = Math.abs(longitudeA - longitudeB);
+    coordDistance = ([X1, Y1], [X2, Y2]) => {
+        const latitudeDifference = Math.abs(X1 - X2);
+        const longitudeDifference = Math.abs(Y1 - Y2);
         
         const latitudeDistance = (110 * latitudeDifference) / 10000;
         const longitudeDistance = (88 * longitudeDifference) / 10000;
@@ -55,7 +53,15 @@ class Coords {
         return distance|0;
     }
 
-    randomSeoulCoord = function() {
+    squareBox = (userX, userY) => {
+        const n = 4;
+        const [minX, maxX] = [ (userX - (n/110)*10**7)|0, (userX + n/110*10**7)|0 ];
+        const [minY, maxY] = [ (userY - n/88*10**7)|0, (userY + n/88*10**7)|0 ];
+
+        return { minX, maxX, minY, maxY };
+    }
+
+    randomSeoulCoord = () => {
         const latitude = Math.random()*this.#maxLatitude + this.#baseLatitude;
         const longitude = Math.random()*this.#maxLongitude + this.#baseLongitude;
 

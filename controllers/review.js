@@ -33,8 +33,7 @@ class ReviewController {
      
              const result = await ReviewService.deleteReview(userId, reviewId)
              res.json({
-                 result: result,
-                 message: "SUCCESS",
+                 result: result
                });
      
            } catch (error) {

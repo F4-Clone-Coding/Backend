@@ -1,21 +1,18 @@
 const { OrderService } = require("../services");
+const { InvalidParamsError } = require("../utils/exception");
 
 class OrderController {
-  /**
-   * 주문내역 조회 (GET 'oder/:orderId')
-   * @param {*} req
-   * @param {*} res
-   * @param {*} next
-   * @returns
-   */
+
+//주문내역 조회 (GET 'oder/:orderId')
   findOneOrder = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-      const foundOrder = await OrderService.findOneOrder(orderId);
+      if(!orderId) throw new InvalidParamsError('입력값이 없습니다.')
+
+      const foundOrder = await OrderService.findOne(orderId);
       res.json({ data: foundOrder });
     } catch (error) {
-      console.trace(error);
-      return res.status(400).json("임시로 쓴 에러");
+      next(error);
     }
   };
 
@@ -26,8 +23,7 @@ class OrderController {
       const foundOrder = await OrderService.findOrderRecordsById(orderId);
       res.json({ data: foundOrder });
     } catch (error) {
-      console.trace(error);
-      return res.status(400).json("임시로 쓴 에러");
+      next(error);
     }
   };
 
@@ -44,6 +40,8 @@ class OrderController {
       const { order } = req.body;
       const { storeId } = req.params;
 
+      if(!userId || !order || !storeId) throw new InvalidParamsError("입력값이 없습니다.");
+
       const createOrderData = await OrderService.createOrder(
         userId,
         storeId,
@@ -54,10 +52,7 @@ class OrderController {
 
       res.json({ data: orderId });
     } catch (error) {
-      //next(error);
-      console.trace(error);
-
-      return res.status(400).json("임시로 쓴 에러");
+      next(error);
     }
   };
 }

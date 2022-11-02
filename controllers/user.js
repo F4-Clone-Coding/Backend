@@ -121,11 +121,20 @@ class UserController {
   findOneforMyPage = async function (req, res, next) {
     console.log("MY PAGE");
     try {
-      const user = req.app.locals.user;
-      const orderList = await UserService.findOneforMyPage(user.userId);
+      const userInfo = req.app.locals.user;
+      if(userInfo.userId) throw new InvalidParamsError("사용자 정보가 없습니다.");
+
+      const orderList = await UserService.findOneforMyPage(userInfo.userId);
+
+      const user = {
+        userId:userInfo.userId,
+        email:userInfo.email,
+        nickname:userInfo.nickname,
+        orderList
+      }
 
       res.status(200).json({
-        user, orderList
+        user
       });
     } catch (error) {
       next(error);

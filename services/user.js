@@ -89,38 +89,25 @@ class UserService {
 
   findOneforMyPage = async function (userId) {
     const orders = await OrderRepo.findOrderByUserId(userId);
+
     let orderList = [];
+
     for (const order of orders) {
-      let menuList = [];
       const { records } = order;
+      const { createdAt } = order;
+      const menuCount = records.length - 1;
+
       const { totalPrice } = records[records.length - 1];
-
-      const promises = records.map(async (record) => {
-        const menuId = record.menuId;
-        const count = record.count;
-
-        if (menuId && count) {
-          const menu = await OrderRepo.findOneMenu(menuId);
-          const Menu = {
-            menuId: menu.menuId,
-            name: menu.name,
-            price: menu.price,
-            count,
-            image: menu.image,
-          };
-          menuList.push(Menu);
-        }
-      });
-      await Promise.all(promises);
-      menuList.push({ sum: totalPrice });
+      const menuId = records[0].menuId;
+      const menu = await OrderRepo.findOneMenu(menuId);
 
       const orderInfo = {
-        orderId: order.orderId,
-        createdAt: order.createdAt,
         storeId: order.Store.storeId,
         name: order.Store.name,
-        contact: order.Store.contact,
-        menuList,
+        menu: menu.name,
+        menuCount: menuCount,
+        createdAt: createdAt,
+        sum: totalPrice,
       };
 
       orderList.push(orderInfo);

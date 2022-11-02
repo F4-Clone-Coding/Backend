@@ -1,7 +1,54 @@
-const { OrderRepo } = require("../repositories");
+const { OrderRepo, MenuRepo } = require("../repositories");
 
 
 class OrderService {
+
+  findOne = async (orderId) => {
+    const order = await OrderRepo.findOneOrder(orderId);
+    const records = order.get().records;
+
+    const menus = [];
+    for (let i=0; i<2; i++) {
+      const result = await MenuRepo.findOne(records[i].menuId);
+      const menu = {
+        ...records[i],
+        ...result.get(),
+        MenuCategory: result.get().MenuCategory.name
+      }
+      menus.push( menu );
+    }
+
+    return {
+      orderId: order.orderId,
+      ...order.Store.get(),
+      menus,
+      menusCount: menus.length,
+      sum: records[2].totalPrice,
+      createdAt: order.createdAt,
+    }
+  };
+
+  /**
+   * 주문생성 (POST 'store/:storeId')
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   * @returns
+   */
+  createOrder = async (userId, storeId, order) => {
+    // const ordered = JSON.stringify(order);
+    const records = order.menus;
+    const sum = order.sum;
+    records.push({'totalPrice': sum});
+    const createOrderData = await OrderRepo.createOrder(
+      userId,
+      storeId,
+      records
+    );
+    console.log(createOrderData.get());
+    return createOrderData;
+  };
+
 
   /**
    * 주문내역 조회 (GET 'oder/:orderId')
@@ -10,7 +57,7 @@ class OrderService {
    * @param {*} next
    * @returns
    */
-  findOneOrder = async (orderId) => {
+   findOneOrder = async (orderId) => {
     const foundOrder = await OrderRepo.findOneOrder(orderId);
 
     const { records } = foundOrder;
@@ -48,39 +95,6 @@ class OrderService {
       sum,
     };
     return data;
-  };
-
-  //주문 한개 내역 조회 //사용하지 않고 있습니다.
-  findOrderRecordsById = async (orderId) => {
-    const foundOrder = await OrderRepo.findOrderById(orderId);
-
-    const result = foundOrder.get().records;
-    console.log(JSON.parse(result));
-
-    const data = JSON.parse(result);
-
-    return data;
-  };
-
-  /**
-   * 주문생성 (POST 'store/:storeId')
-   * @param {*} req
-   * @param {*} res
-   * @param {*} next
-   * @returns
-   */
-  createOrder = async (userId, storeId, order) => {
-    //const ordered = JSON.stringify(order);
-    const records = order.menus;
-    const sum = order.sum;
-    records.push({'totalPrice': sum});
-    const createOrderData = await OrderRepo.createOrder(
-      userId,
-      storeId,
-      records
-    );
-
-    return createOrderData;
   };
 }
 

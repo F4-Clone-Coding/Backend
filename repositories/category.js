@@ -1,6 +1,6 @@
 const { Category, Store } = require('../db/models')
 
-class CategoryRepositories {
+class CategoryRepository {
 
   //전체 카테 고리 조회
   findAllCategories = async (page) =>{
@@ -20,4 +20,4 @@ class CategoryRepositories {
 
 }
 
-module.exports = new CategoryRepositories();
+module.exports = new CategoryRepository();

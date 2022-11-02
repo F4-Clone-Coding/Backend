@@ -1,5 +1,6 @@
 const { Order, Store, Menu } = require("../db/models");
 const { Op } = require('sequelize')
+const date = require('../utils/listing/date');
 
 class OrderRepository {
       /**
@@ -43,15 +44,12 @@ class OrderRepository {
    * @returns 
    */
   createOrder = async ( userId, storeId, records ) => {
-    console.log(userId, storeId, records)
-    const createOrderData = await Order.create({ userId, storeId, records });
-    return createOrderData;
+    return await Order.create({ userId, storeId, records });
   };
 
   //주문 한개 내역 조회 // 사용하지 않고 있습니다.
   findOrderById = async (orderId) => {
-    const foundOrder = await Order.findByPk(orderId)
-    return foundOrder
+    return await Order.findByPk(orderId)
   }
 
   findOrderByUserId = async (userId) =>{
@@ -68,22 +66,23 @@ class OrderRepository {
     return foundOrderList
   }
 
-  orderTotalCount = async function(storeId) {    
+  orderTotalCount = async function(storeId) {
     return await Order.count({
       where: { storeId }
     })
   }
 
-  // orderRecentCount = async function(storeId) {
-  //   return await Order.count({
-  //     where: { 
-  //       storeId,
-  //       createdAt: {
-  //         [Op.gt]: 
-  //       }
-  //     },
-  //   })
-  // }
+  orderRecentCount = async function(storeId) {
+    const lastSevenDays = date.lastSevenDays();
+    return await Order.count({
+      where: { 
+        storeId,
+        createdAt: {
+          [Op.gt]: lastSevenDays
+        }
+      },
+    })
+  }
 
   // findOrderByStore = async function(storeId) {
   //   return await Order.findOne({

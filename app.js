@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const fileupload = require('express-fileupload')
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
@@ -19,21 +20,19 @@ const DOMAIN = env.DOMAIN;
 // middlewares
 app.use(logger('dev'));
 
-resetview();
-
-app.use(function (req, res, next) {
-  res.set({
-    'Access-Control-Allow-Credentials': true,
-    'Access-Control-Allow-Origin': req.headers.origin,
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
-    'Access-Control-Allow-Headers':
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
-  });
-  next();
+app.use(function(req, res, next) {
+    res.set({
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': req.headers.origin,
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, authorization, refreshToken, cache-control'
+    });
+    next();
 });
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileupload());
 app.use(session(sessionInfo));
 
 app.use('/', indexRouter);
@@ -52,6 +51,7 @@ if (env.MODE == 'development') {
     HTTPS.createServer(option, app).listen(PORT, async () => {
       console.log('HTTPS 서버가 실행되었습니다. 포트 :: ' + PORT);
       console.log(env);
+      resetview();
 
       try {
         await sequelize.authenticate();
@@ -65,6 +65,7 @@ if (env.MODE == 'development') {
     console.log(error);
     console.log('HTTPS 서버가 실행되지 않습니다.');
     app.listen(PORT, () => {
+      resetview();
       console.log('HTTP 서버가 실행되었습니다. 포트 :: ' + PORT);
     });
   }

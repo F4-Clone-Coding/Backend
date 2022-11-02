@@ -47,16 +47,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
+        defaultValue: Date.now(),
       },
     },
     {
       sequelize,
-      modelName: 'Order'
+      modelName: 'Order',
+      updatedAt: false,
     }
   );
   return Order;

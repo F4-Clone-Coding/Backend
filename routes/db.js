@@ -34,7 +34,7 @@ router.post('/menucategory', async(req, res)=>{
 });
 
 router.post('/menu', async(req, res)=>{
-    const menuList = req.body;
+    const { menuList } = req.body;
 
     await Menu.bulkCreate(menuList);
 

@@ -6,10 +6,10 @@ class StoreController {
     try {
       const { storeId } = req.params;
       const findStore = await StoreService.DetailStore(storeId);
-
       const reviews = await ReviewService.findReview(storeId);
 
-      res.status(200).send({ data : findStore },{reviews});
+      await StoreService.updateScore(storeId);
+      res.status(200).send({ data : findStore }, {reviews});
     } catch (error) {
       console.log(error);
       res.status(400).send({ msg: '매장 상세 보기 에러' });

@@ -39,9 +39,13 @@ module.exports = {
         allowNull: true,
         type: Sequelize.TEXT,
       },
-      location: {
+      X: {
         allowNull: true,
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING(40),
+      },
+      Y: {
+        allowNull: true,
+        type: Sequelize.STRING(40),
       },
       viewTotal : {
         allowNull: false,
@@ -55,13 +59,13 @@ module.exports = {
       },
       score : {
         allowNull: false,
-        type: Sequelize.SMALLINT.UNSIGNED,
+        type: Sequelize.FLOAT,
         defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.STRING,
-        defaultValue: new Date().toLocaleDateString(),
+        type: Sequelize.INTEGER,
+        defaultValue: Date.now(),
       },
     });
   },

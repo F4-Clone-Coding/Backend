@@ -1,5 +1,6 @@
-const { OrderService } = require("../services");
+const { OrderService, StoreService } = require("../services");
 const { InvalidParamsError } = require("../utils/exception");
+
 
 class OrderController {
 
@@ -49,6 +50,7 @@ class OrderController {
         storeId,
         order
       );
+      await StoreService.updateScore(storeId);
 
       const { orderId } = createOrderData;
 

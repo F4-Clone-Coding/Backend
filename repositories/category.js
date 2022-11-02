@@ -7,6 +7,7 @@ class CategoryRepository {
     return await Store.findAll({
       limit: 10,
       offset: 10*page,
+      order: [['score', 'desc']]
     })
   }
   //카테고리에 해당하는 매장 조회

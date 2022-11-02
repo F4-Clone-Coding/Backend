@@ -54,9 +54,13 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         type: DataTypes.TEXT,
       },
-      location: {
+      X: {
         allowNull: false,
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(40),
+      },
+      Y: {
+        allowNull: false,
+        type: DataTypes.STRING(40),
       },
       viewTotal: {
         allowNull: false,
@@ -70,13 +74,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       score: {
         allowNull: false,
-        type: DataTypes.SMALLINT.UNSIGNED,
+        type: DataTypes.FLOAT,
         defaultValue: 0
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.STRING,
-        defaultValue: new Date().toLocaleDateString(),
+        type: DataTypes.INTEGER,
+        defaultValue: Date.now(),
       },
     },
     {

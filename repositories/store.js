@@ -15,6 +15,21 @@ class StoreRepository {
       include: { model: Menu },
     });
   };
+
+  //초기화하기
+  resetview = async () => {
+    await Store.update({ viewRecent: 0 }, { where: {} });
+  };
+
+  findStore = async function(storeId) {
+    return await Store.findOne({ where: { storeId } });
+  }
+
+  updateScore = async function(storeId, score) {
+    await Store.update({ score }, {
+      where: { storeId }
+    });
+  }
 }
 
 module.exports = new StoreRepository();

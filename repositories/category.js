@@ -1,4 +1,5 @@
-const { Op } = require('sequelize');
+const { Op, literal } = require('sequelize');
+const sequelize = require('../db/config/connection');
 const { Category, Store } = require('../db/models');
 const { squareBox } = require('../utils/listing/coords');
 
@@ -6,38 +7,32 @@ const { squareBox } = require('../utils/listing/coords');
 class CategoryRepository {
 
   //전체 카테 고리 조회
-  findAllCategories = async (page, [userX, userY]) =>{
+  findAllCategories = async ([userX, userY]) =>{
     const { minX, maxX, minY, maxY } = squareBox(userX, userY);
+    const k = Date.now().toString().at(7) % 2;
 
-    return await Store.findAll({
-      where : {
-        X: {
-          [Op.between]: [minX, maxX]
-        },
-        Y: {
-          [Op.between]: [minY, maxY]
-        }
-      },
-      order: [['score', 'desc']]
-    });
+    return await sequelize.query(`
+      SELECT * FROM Stores
+      WHERE storeId % 2 = ${k}
+      AND X BETWEEN ${minX} AND ${maxX}
+      AND Y BETWEEN ${minY} AND ${maxY}
+      ORDER BY score DESC;
+    `)
   };
 
   //카테고리에 해당하는 매장 조회
-  findOneCategory = async (categoryId, page, [userX, userY]) =>{
+  findOneCategory = async (categoryId, [userX, userY]) =>{
     const { minX, maxX, minY, maxY } = squareBox(userX, userY);
+    const k = Date.now().toString().at(7) % 2;
 
-    return await Store.findAll({
-      where: { 
-        categoryId,
-        X: {
-          [Op.between]: [minX, maxX]
-        },
-        Y: {
-          [Op.between]: [minY, maxY]
-        }
-      },
-      order: [['score', 'desc']]
-    });
+    return await sequelize.query(`
+      SELECT * FROM Stores
+      WHERE categoryId = ${categoryId}
+      AND storeId % 2 = ${k}
+      AND X BETWEEN ${minX} AND ${maxX}
+      AND Y BETWEEN ${minY} AND ${maxY}
+      ORDER BY score DESC;
+    `)
   };
 
 }

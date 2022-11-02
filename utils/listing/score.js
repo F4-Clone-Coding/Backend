@@ -20,8 +20,8 @@ class Score {
         const log = Math.log10;
         const D = distance < 3000 ? 30*log(3020-distance) - 10*log(distance+3)
             : 10 - 4*log(distance - 2952);
-        console.log(distance, D);
-        return D * score;
+
+        return { score: D * score, distance };
     }
 
     randomViewCount = () => {

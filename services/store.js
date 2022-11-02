@@ -20,7 +20,7 @@ class StoreServices {
 
   updateScore = async function(storeId) {
     const store = await StoreRepo.findStore(storeId);
-    const score = scoreBase(store)
+    const score = await scoreBase(store)
     const result = await StoreRepo.updateScore(storeId, score);
 
     switch (result[0]) {

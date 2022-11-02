@@ -7,46 +7,6 @@ const { redisClient } = require("../utils/session");
 const redisCli = redisClient.v4
 
 
-// module.exports = async (req, res, next) => {
-//   const { authorization, refreshtoken } = req.headers;
-//   const [authType, authToken] = (authorization || "").split(" ");
-
-//   if (!authToken || authType !== "Bearer") {
-//       next(InvaliadAccessError("로그인 후 이용 가능한 기능입니다.", 401));
-//   }
-
-//   try {
-//     const payload = jwt.verify(authToken);
-
-//     if (payload) {
-//       req.app.locals.user = payload;
-//       next();
-
-//     } else {
-//       const verifyRefresh = jwt.verify(refreshtoken);
-
-//       if (verifyRefresh) {
-//         const userId = await findUserByToken(refreshtoken);
-//         const user = await UserRepo.findOne(userId);
-
-//         const newPayload = {
-//           userId,
-//           username: user.username,
-//           nickname: user.nickname
-//         }
-//         const newAccessToken = jwt.sign(newPayload);
-
-//         res.cookie("accessToken", newAccessToken, cookieConfig);
-//         next();
-//       } else {
-//         throw new InvaliadAccessError("유효하지 않은 refreshToken", 401);
-//       }
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 // temporary authMiddleware
 module.exports = async (req, res, next) => {
   console.log("TEMP AUTH MIDDLEWARE");
@@ -68,8 +28,10 @@ module.exports = async (req, res, next) => {
     console.log("accessToken이 뱉은 payload :", payload);
 
     if (payload) {
-      req.app.locals.user = payload;
-      next();
+      const location = await redisCli.get(`user${payload.userId}`)
+      const [X, Y] = location.split(',').map(Number);
+      req.app.locals.user = Object.assign(payload, {X, Y});
+      return next();
     }
 
     /**AccessToken만 만료시 AccessToken재발급 */
@@ -95,11 +57,14 @@ module.exports = async (req, res, next) => {
         }
 
         /**유저정보 DB에서 찾아오기*/
+        const location = await redisCli.get(`user${userId}`)
+        const [X, Y] = location.split(',').map(Number);
         const userInfo = await UserRepo.findOne(userId);
         const user = {
           userId: userInfo.userId,
           email: userInfo.email,
           nickname: userInfo.nickname,
+          X, Y
         };
 
         /**AccessToken 재발급 */

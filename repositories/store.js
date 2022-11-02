@@ -26,7 +26,7 @@ class StoreRepository {
   }
 
   updateScore = async function(storeId, score) {
-    await Store.update({ score }, {
+    return await Store.update({ score }, {
       where: { storeId }
     });
   }

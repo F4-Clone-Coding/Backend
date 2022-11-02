@@ -31,31 +31,6 @@ class OrderService {
   };
 
 
-  createOrder = async (userId, storeId, order) => {
-    // const ordered = JSON.stringify(order);
-    const records = order.menus;
-    const sum = order.sum;
-    records.push({'totalPrice': sum});
-    const createOrderData = await OrderRepo.createOrder(
-      userId,
-      storeId,
-      records
-    );
-    console.log(createOrderData.get());
-    return createOrderData;
-  };
-
-  //주문 한개 내역 조회 //사용하지 않고 있습니다.
-  findOrderRecordsById = async (orderId) => {
-    const foundOrder = await OrderRepo.findOrderById(orderId);
-
-    const result = foundOrder.get().records;
-
-    const data = JSON.parse(result);
-
-    return data;
-  };
-
  //주문생성 POST store/:storeId
   createOrder = async (userId, storeId, order) => {
     const records = order.menus;

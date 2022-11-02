@@ -4,10 +4,10 @@ const { StoreRepo, OrderRepo } = require('../../repositories');
 
 class Score {
     
-    scoreBase = (store) => {
+    scoreBase = async(store) => {
         const { storeId, viewTotal, viewRecent, createdAt } = store;
 
-        const R = this.#viewOrderRatio(viewTotal, viewRecent, storeId);
+        const R = await this.#viewOrderRatio(viewTotal, viewRecent, storeId);
         const T = this.#timeSinceListing(createdAt);
 
         return (14 / T) * R;

@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey: 'userId',
         foreignKey: 'userId',
       });
+      this.hasMany(models.Review, {
+        sourceKey: 'userId',
+        foreignKey: 'userId'
+      });
     }
   }
 

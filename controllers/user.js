@@ -51,6 +51,7 @@ class UserController {
       if (updated) {
         res.status(200).json({
           result: true,
+          nickname: nickname,
           message: "SUCCESS",
         });
       } else {

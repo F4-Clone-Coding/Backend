@@ -3,7 +3,6 @@ const apvDate = require('./apvDate');
 const axios = require('axios');
 const { Category, Store, MenuCategory, Menu } = require('../db/models');
 const { randomViewCount, scoreForCreation } = require('../utils/listing/score');
-const { convertCoords } = require('../utils/listing/coords');
 
 
 (async()=>{
@@ -32,7 +31,7 @@ function sleep(ms) {
 async function createCategories() {
     const list = ['중식', '한식', '양식', '분식', '카페·디저트', '일식', '치킨', '패스트푸드', '브런치', '기타', '아시안', '야식'];
 
-    // // 서버용
+    // 서버용
     // await axios({
     //     method: "POST",
     //     url: "https://mignon-mh.shop/db/category",
@@ -67,15 +66,11 @@ async function createStores() {
         // console.log(storeData[i].REST_NM);
 
         const stores = storeData.slice(i, i+100).map((store)=>{
-            const [X, Y] = convertCoords(Number(store.LAT), Number(store.LOT));
-
+            const n = ( Math.random() * 482000)|0;
             const viewTotal = randomViewCount();
             const viewRecent = viewTotal > ( randomViewCount() * 0.1 )|0
                 ? ( randomViewCount() * 0.1 )|0 : (viewTotal * Math.random())|0;
-
-            const n = ( Math.random() * 482000)|0;
             const createdAt = apvDate[n][n+1];
-            
             const score = scoreForCreation(viewTotal, viewRecent, createdAt);
 
             return {
@@ -83,8 +78,10 @@ async function createStores() {
                 categoryId: category[store.TOB_INFO] || 10,
                 contact: store.TELNO,
                 openHour: store.OPEN_HR_INFO || '매일 17:00~24:00 일요일휴무',
-                X, Y,
-                viewTotal, viewRecent,
+                X: (Number(store.LAT) * 10**7)|0,
+                Y: (Number(store.LOT) * 10**7)|0,
+                viewTotal,
+                viewRecent,
                 score,
                 createdAt,
             }

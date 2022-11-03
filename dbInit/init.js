@@ -1,13 +1,16 @@
-const storeData = require('./data');
-const apvDate = require('./apvDate');
+const storeData = require('../data.json');
+const apvDate = require('../apvDate.json');
+const MenuimgData = require('../datajson/MenuimageUrl.json');
+const MenuimgDataId = require('../datajson/MenuimgDataId.json');
+const StoreIdData = require('../datajson/StoreIdData.json');
+const storeimageUrl = require('../datajson/storeimageUrl.json');
 const axios = require('axios');
 const { Category, Store, MenuCategory, Menu } = require('../db/models');
 const { randomViewCount, scoreForCreation } = require('../utils/listing/score');
-
 (async () => {
-  await createCategories();
-  console.log('CATEGORIES CREATED');
-  await sleep(3000);
+  // await createCategories();
+  // console.log('CATEGORIES CREATED');
+  // await sleep(3000);
 
   await createStores();
   console.log('STORES CREATED');
@@ -41,17 +44,17 @@ async function createCategories() {
     '야식',
   ];
 
-  // 서버용
-  await axios({
-    method: 'POST',
-    url: 'https://mignon-mh.shop/db/category',
-    data: { list },
-  });
+  // 서버용;
+  // await axios({
+  //   method: 'POST',
+  //   url: 'https://mignon-mh.shop/db/category',
+  //   data: { list },
+  // });
 
-  // // 로컬용
-  // for (i of list) {
-  //     await Category.create({ name: i });
-  // }
+  // 로컬용
+  for (i of list) {
+    await Category.create({ name: i });
+  }
 }
 
 async function createStores() {
@@ -69,10 +72,10 @@ async function createStores() {
     아시안: 11,
     야식: 12,
   };
+  // 숙제;
+  // storeUrlData; // 258 제이슨
 
   for (let i = 0; i + 100 <= 20000; i += 100) {
-    // console.log(storeData[i].REST_NM);
-
     const stores = storeData.slice(i, i + 100).map((store) => {
       const n = (Math.random() * 482000) | 0;
       const viewTotal = randomViewCount();
@@ -82,7 +85,8 @@ async function createStores() {
           : (viewTotal * Math.random()) | 0;
       const createdAt = apvDate[n][n + 1];
       const score = scoreForCreation(viewTotal, viewRecent, createdAt);
-
+      const image = storeimageUrl[i % 12];
+      // console.log(image);
       return {
         name: store.REST_NM,
         categoryId: category[store.TOB_INFO] || 10,
@@ -92,23 +96,23 @@ async function createStores() {
         Y: (Number(store.LOT) * 10 ** 7) | 0,
         viewTotal,
         viewRecent,
+        imageUrl: image.imageUrl,
         score,
         createdAt,
       };
     });
-
-    // // console.log(stores);
-    // // 로컬용
-    // await Store.bulkCreate(stores);
+    console.log(stores);
+    // 로컬용
+    await Store.bulkCreate(stores);
 
     // 서버용
-    const { data } = await axios({
-      method: 'POST',
-      url: 'https://mignon-mh.shop/db/store',
-      data: { stores },
-    });
+    // const { data } = await axios({
+    //   method: 'POST',
+    //   url: 'https://mignon-mh.shop/db/store',
+    //   data: { stores },
+    // });
 
-    console.log(i, i + 100);
+    // console.log(i, i + 100);
   }
 }
 
@@ -139,17 +143,17 @@ async function createMenuCategories() {
     '사이드메뉴',
   ];
 
-  // // 로컬용
-  // for (i of mc) {
-  //     MenuCategory.create({ name: i });
-  // }
+  // 로컬용
+  for (i of mc) {
+    MenuCategory.create({ name: i });
+  }
 
   //서버용
-  await axios({
-    method: 'POST',
-    url: 'https://mignon-mh.shop/db/menucategory',
-    data: { mc },
-  });
+  // await axios({
+  //   method: 'POST',
+  //   url: 'https://mignon-mh.shop/db/menucategory',
+  //   data: { mc },
+  // });
 }
 
 async function createMenus() {
@@ -227,29 +231,35 @@ async function createMenus() {
       menuCategoryList.push(22);
     else menuCategoryList.push(1);
   });
-
+  //   imageUrl
   const menuList = menuPrice.map((v, i) => {
+    // 10만개
+    MenuimgData; // 258 제이슨
+    imgList = MenuimgData[menuCategoryList[i]];
+    // length = MenuimgData.length; //258
+    // console.log(MenuimgData);
     return {
       name: v[0][1].length > 40 ? '인생죽' : v[0][1],
       storeId: v[2],
       price: v[1] ? v[1] : 50000,
       menuCategoryId: menuCategoryList[i],
+      image: imgList.imageUrl,
     };
   });
 
   // 서버용
+  // for (let i = 0; i < menuList.length; i += 100) {
+  //   await axios({
+  //     method: 'POST',
+  //     url: 'https://mignon-mh.shop/db/menu',
+  //     data: { menuList: menuList.slice(i, i + 100) },
+  //   });
+  //   console.log(i, i + 100);
+  // }
+
+  // 로컬용
   for (let i = 0; i < menuList.length; i += 100) {
-    await axios({
-      method: 'POST',
-      url: 'https://mignon-mh.shop/db/menu',
-      data: { menuList: menuList.slice(i, i + 100) },
-    });
+    await Menu.bulkCreate(menuList.slice(i, i + 100));
     console.log(i, i + 100);
   }
-
-  // // 로컬용
-  // for (let i=0; i<menuList.length; i+=100) {
-  //     await Menu.bulkCreate(menuList.slice(i, i+100))
-  //     console.log(i, i+100);
-  // }
 }

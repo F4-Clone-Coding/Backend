@@ -3,6 +3,7 @@ const env = require("../config.env");
 const { UserService } = require("../services");
 const jwt = require("../utils/jwt");
 const { signupSchema, signinSchema } = require("../utils/validation");
+const { saveCoords } = require('../utils/listing/coords');
 const { InvalidParamsError } = require("../utils/exception");
 const { redisClient } = require("../utils/session");
 
@@ -167,7 +168,7 @@ class UserController {
       const { email, password, location } = await signinSchema.validateAsync(
         req.body
       );
-      const [X, Y] = location?.split(', ').map((n)=>Number(n).toFixed(7)*10**7);
+      const [X, Y] = saveCoords(location);
       const payload = await UserService.signin(email, password);
       if (payload instanceof Error) throw payload;
 

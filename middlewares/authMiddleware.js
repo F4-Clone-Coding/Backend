@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
   const [refType, refToken] = (refreshtoken || "").split(" ");
 
   if (accType !== "Bearer" || refType !== "Bearer") {
-    next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
+    return next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
   }
 
   try {
@@ -41,7 +41,7 @@ module.exports = async (req, res, next) => {
 
       /**refreshToken만료시 재로그인 요청 */
       if (!verifyRefresh) {
-        next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
+        return next(new InvalidAccessError("로그인 후 이용 가능한 기능입니다.", 401));
       }
       if (verifyRefresh) {
         //전달안됨1 //const {userId} = req.app.locals.user;
@@ -53,7 +53,7 @@ module.exports = async (req, res, next) => {
 
         /**refreshToken은 정상이지만 한번도 로그인을 한 적이 없는 에외적인 경우 **/
         if (!userId) {
-          next(new InvalidAccessError("로그인 시간이 만료되었습니다.", 401));
+          return next(new InvalidAccessError("로그인 시간이 만료되었습니다.", 401));
         }
 
         /**유저정보 DB에서 찾아오기*/

@@ -9,7 +9,6 @@ class StoreRepository {
 
   //매장살세페이지 조회
   DetailStore = async (storeId) => {
-    console.log();
     return await Store.findOne({
       where: { storeId },
       include: { model: Menu },

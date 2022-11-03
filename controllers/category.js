@@ -5,7 +5,6 @@ class CategoryController {
 
   //전체 카테 고리 조회
   findAllCategories = async (req,res,next) =>{
-    console.log("ALLLLLLLLLLLLLLL")
     try{
       const { X, Y } = req.app.locals.user;
       const { page } = req.query;
@@ -13,7 +12,6 @@ class CategoryController {
 
       res.status(200).json({ storeList });
     }catch(error){
-      console.log(error);
       res.status(400).json({msg : "카테고리 목록 조회 에러"});
     }
   }
@@ -30,7 +28,6 @@ class CategoryController {
       
       res.status(200).json({ storeList });
     }catch(error){
-      console.log(error);
       res.status(400).json({msg : "카테고리별 매장 목록 조회 에러"});
     }
   }

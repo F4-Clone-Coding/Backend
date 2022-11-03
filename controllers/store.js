@@ -14,7 +14,6 @@ class StoreController {
 
       res.status(200).json({ store, reviews });
     } catch (error) {
-      console.log(error);
       res.status(400).json({ msg: '매장 상세 보기 에러' });
     }
   };

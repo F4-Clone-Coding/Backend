@@ -11,7 +11,6 @@ class LikeService {
 
         if (like) {
             const result = await LikeRepo.deleteLike(storeId, userId);
-            console.log("DELETE", result);        
             switch (result) {
                 case 1:
                     return true;
@@ -20,7 +19,6 @@ class LikeService {
             }
         }
         const result = await LikeRepo.createLike(storeId, userId);
-        console.log("Create: ", result);
         switch (Boolean(result)) {
             case true:
                 return true;

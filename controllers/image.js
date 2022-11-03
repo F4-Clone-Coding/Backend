@@ -19,7 +19,6 @@ class ImagesController {
 
       res.status(200).send(imageUrls);
     } catch (error) {
-      console.log(error);
       next(error);
     }
   };

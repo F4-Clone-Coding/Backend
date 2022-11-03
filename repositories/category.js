@@ -1,14 +1,12 @@
-const { Op, literal } = require('sequelize');
 const sequelize = require('../db/config/connection');
-const { Category, Store } = require('../db/models');
-const { squareBox } = require('../utils/listing/coords');
+const { setArea } = require('../utils/listing/coords');
 
 
 class CategoryRepository {
 
   //전체 카테 고리 조회
   findAllCategories = async ([userX, userY]) =>{
-    const { minX, maxX, minY, maxY } = squareBox(userX, userY);
+    const { minX, maxX, minY, maxY } = setArea(userX, userY);
     const k = Date.now().toString().at(7) % 2;
 
     return await sequelize.query(`
@@ -22,7 +20,7 @@ class CategoryRepository {
 
   //카테고리에 해당하는 매장 조회
   findOneCategory = async (categoryId, [userX, userY]) =>{
-    const { minX, maxX, minY, maxY } = squareBox(userX, userY);
+    const { minX, maxX, minY, maxY } = setArea(userX, userY);
     const k = Date.now().toString().at(7) % 2;
 
     return await sequelize.query(`

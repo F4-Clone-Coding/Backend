@@ -1,6 +1,6 @@
 /**
  * 
- * 랜덤 좌표 생성
+ * 서울좌표
  * lat 37.4132940 ~ 37.7151330, long 126.7340860 ~ 127.2693110
  * 0~3018390 + 371114550,  0~5352250 + 1261988610
  * 
@@ -26,14 +26,23 @@
  */
 
 class Coords {
-    #baseLatitude = 371114550;
-    #baseLongitude = 1261988610;
+    #baseLatitude = 374132940;
+    #baseLongitude = 1267340860;
 
     #maxLatitude = 3018390;
     #maxLongitude = 5352250;
 
     #latConvertRatio = 375642135 / 363327789;
     #lotConvertRatio = 1270016985 / 1273912874;
+
+    saveCoords = (location) => {
+        const [X, Y] = location?.split(', ').map((n)=>(Number(n).toFixed(7))*10**7);
+        if (X<this.#baseLatitude || X>this.#baseLatitude+this.#maxLatitude ||
+            Y<this.#baseLongitude || Y>this.#baseLongitude+this.#maxLongitude) {
+                return this.randomSeoulCoord();
+        }
+        return [X, Y];
+    }
 
     convertCoords = (X, Y) => {
         return [ 
@@ -53,7 +62,7 @@ class Coords {
         return distance|0;
     }
 
-    squareBox = (userX, userY) => {
+    setArea = (userX, userY) => {
         const n = 4;
         const [minX, maxX] = [ (userX - (n/110)*10**7)|0, (userX + n/110*10**7)|0 ];
         const [minY, maxY] = [ (userY - n/88*10**7)|0, (userY + n/88*10**7)|0 ];
@@ -62,10 +71,18 @@ class Coords {
     }
 
     randomSeoulCoord = () => {
-        const latitude = Math.random()*this.#maxLatitude + this.#baseLatitude;
-        const longitude = Math.random()*this.#maxLongitude + this.#baseLongitude;
+        const latitude = ( this.gRandom(this.#maxLatitude) + this.#baseLatitude )|0;
+        const longitude = ( this.gRandom(this.#maxLongitude) + this.#baseLongitude )|0;
 
-        return `${latitude|0}, ${longitude|0}`;
+        return [latitude, longitude];
+    }
+
+    gRandom = (n) => {
+        let N = 0;
+        for (let i=0; i<10; i++) {
+            N += Math.random()*n
+        }
+        return (N/10)|0;
     }
 }
 

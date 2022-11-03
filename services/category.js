@@ -14,7 +14,7 @@ findAllCategories = async (page, [userX, userY]) =>{
     const { score, distance } = scoreDistance(store, [userX, userY]);
     return {
       ...store,
-      score, 
+      score: score ?? 0, 
       distance: (distance/1000).toFixed(1) + 'km'
     }
   }).sort((a,b)=>{

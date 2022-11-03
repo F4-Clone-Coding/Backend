@@ -1,5 +1,7 @@
 const storeData = require('./data');
 const apvDate = require('./apvDate');
+const storeImg = require('./storeimageUrl');
+const menuImg = require('./menuImg');
 const axios = require('axios');
 const { Category, Store, MenuCategory, Menu } = require('../db/models');
 const { randomViewCount, scoreForCreation } = require('../utils/listing/score');
@@ -82,6 +84,7 @@ async function createStores() {
                 name: store.REST_NM,
                 categoryId: category[store.TOB_INFO] || 10,
                 contact: store.TELNO,
+                imageUrl: storeImg[i%12]?.imageUrl,
                 openHour: store.OPEN_HR_INFO || '매일 17:00~24:00 일요일휴무',
                 X, Y,
                 viewTotal, viewRecent,
@@ -211,11 +214,16 @@ async function createMenus() {
 
 
     const menuList = menuPrice.map((v, i) => {
+        const menuCategoryId = menuCategoryList[i];
+        const list = menuImg[menuCategoryId]
+        const n = ( Math.random() * list.length )|0;
+
         return {
             name: v[0][1].length > 40 ? '인생죽' : v[0][1],
             storeId: v[2],
             price: v[1] ? v[1] : 50000,
-            menuCategoryId: menuCategoryList[i],
+            menuCategoryId,
+            image: list[n]
         };
     });
 

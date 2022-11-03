@@ -24,6 +24,26 @@ class Score {
         return { score: D * score, distance };
     }
 
+    #viewOrderRatio = async function(viewTotal, viewRecent, storeId) {
+        if (viewRecent === 0) viewRecent++;
+        const orderTotal = await OrderRepo.orderTotalCount(storeId);
+        const orderRecent = await OrderRepo.orderRecentCount(storeId);
+        
+        const totalRatio = orderTotal / viewTotal || 0.5;
+        const recentRatio = orderRecent / viewRecent || 0.5;
+        
+        return totalRatio + 2*recentRatio;
+    }
+
+    #timeSinceListing = function(createdAt) {
+        const apvDate = new Date(createdAt).getTime();
+        const nowDate = new Date().getTime();
+
+        return (nowDate - apvDate) / (1000*60*60*24);
+    }
+
+    // 이 아래는 개발용 데이터 넣는 툴
+
     randomViewCount = () => {
         const rng = Math.random;
 
@@ -47,25 +67,7 @@ class Score {
         const T = this.#timeSinceListing(createdAt) || 7;
 
         return (14 / T) * R;
-    }
-
-    #viewOrderRatio = async function(viewTotal, viewRecent, storeId) {
-        if (viewRecent === 0) viewRecent++;
-        const orderTotal = await OrderRepo.orderTotalCount(storeId);
-        const orderRecent = await OrderRepo.orderRecentCount(storeId);
-        
-        const totalRatio = orderTotal / viewTotal || 0.5;
-        const recentRatio = orderRecent / viewRecent || 0.5;
-        
-        return totalRatio + 2*recentRatio;
-    }
-
-    #timeSinceListing = function(createdAt) {
-        const apvDate = new Date(createdAt).getTime();
-        const nowDate = new Date().getTime();
-
-        return (nowDate - apvDate) / (1000*60*60*24);
-    }
+    }    
 
     #randomNormals = function(rng) {
         let u1 = 0, u2 = 0;

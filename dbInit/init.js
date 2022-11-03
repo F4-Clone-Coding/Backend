@@ -65,7 +65,6 @@ async function createStores() {
     }
 
     for (let i=0; i+100<=20000; i+=100) {
-        // console.log(storeData[i].REST_NM);
 
         const stores = storeData.slice(i, i+100).map((store)=>{
             const n = ( Math.random() * 482000)|0;
@@ -90,7 +89,6 @@ async function createStores() {
             }
         });
 
-        // console.log(stores);
         // 로컬용
         await Store.bulkCreate(stores);
 

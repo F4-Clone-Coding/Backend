@@ -14,7 +14,7 @@ const sequelize = new Sequelize({
         dateStrings: true,
         typeCast: true
     },
-    // logging: false,
+    logging: false,
 });
 
 

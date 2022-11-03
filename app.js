@@ -50,7 +50,6 @@ if (env.MODE == 'development') {
 
     HTTPS.createServer(option, app).listen(PORT, async () => {
       console.log('HTTPS 서버가 실행되었습니다. 포트 :: ' + PORT);
-      console.log(env);
       resetview();
 
       try {
@@ -62,7 +61,6 @@ if (env.MODE == 'development') {
       }
     });
   } catch (error) {
-    console.log(error);
     console.log('HTTPS 서버가 실행되지 않습니다.');
     app.listen(PORT, () => {
       resetview();

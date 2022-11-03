@@ -7,7 +7,6 @@ class CategoryServices {
 //전체 카테 고리 조회
 findAllCategories = async (page, [userX, userY]) =>{
   const result = await CategoryRepo.findAllCategories([userX, userY]);
-  console.log(result[0].length)
 
   const list = 10;
   return result[0].map((store)=>{

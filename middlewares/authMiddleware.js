@@ -9,12 +9,8 @@ const redisCli = redisClient.v4
 
 // temporary authMiddleware
 module.exports = async (req, res, next) => {
-  console.log("TEMP AUTH MIDDLEWARE");
 
   const { authorization, refreshtoken } = req.headers;
-
-  console.log("헤더 authorization :", authorization);
-  console.log("헤더 refreshtoken :", refreshtoken);
 
   const [accType, accToken] = (authorization || "").split(" ");
   const [refType, refToken] = (refreshtoken || "").split(" ");
@@ -25,7 +21,6 @@ module.exports = async (req, res, next) => {
 
   try {
     const payload = jwt.verify(accToken);
-    console.log("accessToken이 뱉은 payload :", payload);
 
     if (payload) {
       const location = await redisCli.get(`user${payload.userId}`)
@@ -37,7 +32,6 @@ module.exports = async (req, res, next) => {
     /**AccessToken만 만료시 AccessToken재발급 */
     if (!payload) {
       const verifyRefresh = jwt.verify(refToken);
-      console.log("refreshToken이 뱉은 verifyRefresh 값 :", verifyRefresh);
 
       /**refreshToken만료시 재로그인 요청 */
       if (!verifyRefresh) {
@@ -49,7 +43,6 @@ module.exports = async (req, res, next) => {
         //전달안됨3 //const userInfo = tokenObject[refreshToken];
         //전달안됨4 //const test = req.session.userId
         const userId = await redisCli.get(refToken)
-        console.log("access만료, refresh생존, userId:", userId);
 
         /**refreshToken은 정상이지만 한번도 로그인을 한 적이 없는 에외적인 경우 **/
         if (!userId) {
@@ -83,7 +76,6 @@ module.exports = async (req, res, next) => {
         //   message: "acessToken 재발급",
         //   accessToken: `Bearer ${newAccessToken}`,
         // });
-        console.log("accessToken 재발급");
         next()
       }
     }
